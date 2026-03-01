@@ -40,7 +40,7 @@ const ContentList = ({ lang }: { lang: 'ko' | 'en' }) => {
                         {content.map((item) => (
                             <div
                                 key={item.slug}
-                                className="group cursor-pointer bg-white border border-black/5 hover:border-black/10 rounded-3xl p-8 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5 flex flex-col h-full"
+                                className="group cursor-pointer bg-white border border-black/5 hover:border-black/10 rounded-3xl p-8 transition-all hover:-translate-y-1 transform-gpu hover:shadow-xl hover:shadow-black/5 flex flex-col h-full"
                             >
                                 <div className="mb-6 flex items-center justify-between">
                                     <span className="text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest bg-black/5 text-black/60">

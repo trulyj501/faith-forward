@@ -246,8 +246,8 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-50/40 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-50/40 blur-[100px] rounded-full" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-50/40 blur-[120px] rounded-full hidden md:block" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-50/40 blur-[100px] rounded-full hidden md:block" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -268,7 +268,7 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
           {projects.map((project, idx) => (
             <div
               key={project.id}
-              className="apple-card group flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98]"
+              className="apple-card group flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
             >
               <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
                 <img
@@ -308,8 +308,8 @@ const VisionPage = ({ lang }: { lang: Language }) => {
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] bg-blue-50/40 blur-[120px] rounded-full" />
-        <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full" />
+        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] bg-blue-50/40 blur-[120px] rounded-full hidden md:block" />
+        <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full hidden md:block" />
       </div>
 
       <div className="max-w-7xl mx-auto mb-16">
@@ -409,8 +409,8 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] bg-purple-50/40 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full" />
+        <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] bg-purple-50/40 blur-[120px] rounded-full hidden md:block" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full hidden md:block" />
       </div>
 
       <div className="max-w-7xl mx-auto">
@@ -433,7 +433,7 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="apple-card p-8 group cursor-pointer flex flex-col h-full !bg-white !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98]"
+              className="apple-card p-8 group cursor-pointer flex flex-col h-full !bg-white !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
             >
               <div className="mb-6">
                 <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest", post.color)}>
@@ -465,13 +465,13 @@ const Hero = ({ lang }: { lang: Language }) => {
     <section className="relative min-h-[70vh] flex items-center pt-40 pb-20 overflow-hidden px-6">
       <div className="absolute inset-0 -z-10">
         <div
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full"
+          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full hidden md:block"
         />
         <div
           className="hidden"
         />
         <div
-          className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-purple-200/20 blur-[140px] rounded-full"
+          className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-purple-200/20 blur-[140px] rounded-full hidden md:block"
         />
       </div>
 
@@ -525,10 +525,10 @@ const Projects = ({ lang }: { lang: Language }) => {
     <section id="projects" className="section-padding bg-transparent relative overflow-hidden">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
-          className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-50/60 blur-[140px] rounded-full"
+          className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-50/60 blur-[140px] rounded-full hidden md:block"
         />
         <div
-          className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-50/60 blur-[120px] rounded-full"
+          className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-50/60 blur-[120px] rounded-full hidden md:block"
         />
       </div>
       <div className="max-w-7xl mx-auto">
@@ -560,7 +560,7 @@ const Projects = ({ lang }: { lang: Language }) => {
                 navigate(`/projects`);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="apple-card group cursor-pointer flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98]"
+              className="apple-card group cursor-pointer flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
             >
               <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
                 <img
@@ -597,10 +597,10 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
     <section id="insights" className="section-padding relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 -z-10">
         <div
-          className="absolute top-[10%] right-[5%] w-[40%] h-[40%] bg-purple-100/30 blur-[130px] rounded-full"
+          className="absolute top-[10%] right-[5%] w-[40%] h-[40%] bg-purple-100/30 blur-[130px] rounded-full hidden md:block"
         />
         <div
-          className="absolute bottom-[10%] left-[5%] w-[50%] h-[50%] bg-emerald-100/30 blur-[130px] rounded-full"
+          className="absolute bottom-[10%] left-[5%] w-[50%] h-[50%] bg-emerald-100/30 blur-[130px] rounded-full hidden md:block"
         />
       </div>
 
@@ -633,7 +633,7 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
                 navigate(`/insights`);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="apple-card p-8 group cursor-pointer flex flex-col transition-transform active:scale-[0.98] border border-black/[0.05] hover:border-black/10 hover:shadow-xl hover:shadow-black/5 rounded-3xl"
+              className="apple-card p-8 group cursor-pointer flex flex-col transition-transform active:scale-[0.98] transform-gpu border border-black/[0.05] hover:border-black/10 hover:shadow-xl hover:shadow-black/5 rounded-3xl"
             >
               <div className="mb-6">
                 <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest", post.color)}>
