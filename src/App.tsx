@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, Sparkles, Heart, Zap, Play, MessageSquare, Send, BookOpen, Sun } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 import Markdown from 'react-markdown';
+import { Link, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import { cn } from './lib/utils';
 
 // --- Constants & Data ---
@@ -22,7 +23,7 @@ const PROJECTS_DATA = (lang: Language) => [
       </div>
     ),
     color: 'bg-rose-50',
-    image: '/qotd_morning_bible.png',
+    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/qotd_morning_bible.png',
     url: 'https://qotd.faithfwd.cc',
   },
   {
@@ -34,7 +35,7 @@ const PROJECTS_DATA = (lang: Language) => [
       : 'A tool for checking and managing emotions through mindful reflection and tracking.',
     icon: <Zap className="text-amber-500" />,
     color: 'bg-amber-50',
-    image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800',
+    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/ragecheck_bg.jpg',
     url: 'https://ragecheck.faithfwd.cc',
   },
   {
@@ -46,19 +47,52 @@ const PROJECTS_DATA = (lang: Language) => [
       : 'AI-generated Christian meditation content blending art, music, and technology.',
     icon: <Play className="text-indigo-500" />,
     color: 'bg-indigo-50',
-    image: 'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800',
+    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/meditation_bg.jpg',
     url: 'https://meditation.faithfwd.cc',
+  }
+];
+
+const INSIGHTS_DATA = (lang: Language) => [
+  {
+    id: 1,
+    category: lang === 'ko' ? '리더십' : 'Leadership',
+    title: lang === 'ko' ? '디지털 시대의 사회적 협동조합 리더십' : 'Social Cooperative Leadership in the Digital Age',
+    date: 'Feb 24, 2026',
+    excerpt: lang === 'ko'
+      ? '급변하는 기술 환경에서 신앙 기반의 가치가 어떻게 리더십 결정을 이끌 수 있는지 탐구합니다.'
+      : 'Exploring how faith-based values can guide leadership decisions in rapidly evolving tech landscapes.',
+    color: 'text-emerald-600 bg-emerald-50/50'
+  },
+  {
+    id: 2,
+    category: lang === 'ko' ? '개발 로그' : 'Dev Log',
+    title: lang === 'ko' ? '확장성을 위한 구축: Next.js와 Supabase 통합' : 'Building for Scale: Next.js and Supabase Integration',
+    date: 'Feb 20, 2026',
+    excerpt: lang === 'ko'
+      ? 'QOTD 앱을 위한 아키텍처 선택과 99.9% 업타임을 보장하는 방법에 대한 기술적 심층 분석입니다.'
+      : 'A technical deep dive into our architecture choices for the QOTD app and how we ensure 99.9% uptime.',
+    color: 'text-indigo-600 bg-indigo-50/50'
+  },
+  {
+    id: 3,
+    category: lang === 'ko' ? '인사이트' : 'Insights',
+    title: lang === 'ko' ? 'AI와 영성 묵상의 교차점' : 'The Intersection of AI and Spiritual Meditation',
+    date: 'Feb 15, 2026',
+    excerpt: lang === 'ko'
+      ? '생성형 AI가 기독교 명상과 예술에서 어떻게 새로운 창의적 표현의 문을 열고 있는지 알아봅니다.'
+      : 'How generative AI is opening new doors for creative expression in Christian meditation and art.',
+    color: 'text-amber-600 bg-amber-50/50'
   }
 ];
 
 // --- Components ---
 
 type Language = 'ko' | 'en';
-type View = 'home' | 'vision' | 'projects';
 
-const Navbar = ({ lang, setLang, setView }: { lang: Language, setLang: (l: Language) => void, setView: (v: View) => void }) => {
+const Navbar = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -67,9 +101,9 @@ const Navbar = ({ lang, setLang, setView }: { lang: Language, setLang: (l: Langu
   }, []);
 
   const navLinks = [
-    { name: lang === 'ko' ? '비전' : 'Vision', type: 'vision' },
-    { name: lang === 'ko' ? '프로젝트' : 'Projects', type: 'projects' },
-    { name: lang === 'ko' ? '인사이트' : 'Insights', href: '#insights' },
+    { name: lang === 'ko' ? '비전' : 'Vision', to: '/vision' },
+    { name: lang === 'ko' ? '프로젝트' : 'Projects', to: '/projects' },
+    { name: lang === 'ko' ? '인사이트' : 'Insights', to: '/insights' },
     { name: lang === 'ko' ? '문의' : 'Contact', href: '#contact' },
   ];
 
@@ -79,10 +113,10 @@ const Navbar = ({ lang, setLang, setView }: { lang: Language, setLang: (l: Langu
       isScrolled ? "bg-white/40 backdrop-blur-2xl border-b border-white/20 py-3 shadow-lg shadow-black/5" : "bg-transparent"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div
+        <Link
+          to="/"
           className="flex items-center gap-3 group cursor-pointer"
           onClick={() => {
-            setView('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
@@ -90,27 +124,29 @@ const Navbar = ({ lang, setLang, setView }: { lang: Language, setLang: (l: Langu
             <div className="w-3.5 h-3.5 bg-white rotate-45" />
           </div>
           <span className="font-sans font-bold text-xl tracking-tight text-[#1D1D1F]">Faith Forward</span>
-        </div>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            link.type === 'vision' || link.type === 'projects' ? (
-              <button
+            link.to ? (
+              <Link
                 key={link.name}
+                to={link.to}
                 onClick={() => {
-                  setView(link.type as View);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="text-sm font-medium text-black/60 hover:text-black transition-colors"
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  location.pathname === link.to ? "text-emerald-600 font-bold" : "text-black/60 hover:text-black"
+                )}
               >
                 {link.name}
-              </button>
+              </Link>
             ) : (
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setView('home')}
                 className="text-sm font-medium text-black/60 hover:text-black transition-colors"
               >
                 {link.name}
@@ -168,24 +204,26 @@ const Navbar = ({ lang, setLang, setView }: { lang: Language, setLang: (l: Langu
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link) => (
-                link.type === 'vision' || link.type === 'projects' ? (
-                  <button
+                link.to ? (
+                  <Link
                     key={link.name}
+                    to={link.to}
                     onClick={() => {
-                      setView(link.type as View);
                       setIsMobileMenuOpen(false);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="text-2xl font-bold tracking-tight text-left"
+                    className={cn(
+                      "text-2xl font-bold tracking-tight text-left",
+                      location.pathname === link.to ? "text-emerald-600" : "text-[#1D1D1F]"
+                    )}
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 ) : (
                   <a
                     key={link.name}
                     href={link.href}
                     onClick={() => {
-                      setView('home');
                       setIsMobileMenuOpen(false);
                     }}
                     className="text-2xl font-bold tracking-tight"
@@ -279,18 +317,38 @@ const VisionPage = ({ lang }: { lang: Language }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="pt-40 pb-32 px-6"
+      className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
-      <div className="max-w-3xl mx-auto">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-[10%] left-[-10%] w-[50%] h-[50%] bg-blue-50/40 blur-[120px] rounded-full" />
+        <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto mb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-5xl md:text-6xl font-sans font-bold mb-12 tracking-tight text-[#1D1D1F]">
-            Vision : {lang === 'ko' ? '우리의 방향성' : 'Our Direction'}
-          </h1>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div className="max-w-2xl">
+              <h1 className="text-5xl md:text-6xl font-sans font-bold mb-6 tracking-tight text-[#1D1D1F]">
+                {lang === 'ko' ? '비전' : 'Vision'}
+              </h1>
+              <p className="text-xl text-black/40 font-medium">
+                {lang === 'ko' ? '우리의 방향성' : 'Our Direction'}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+        >
           <div className="glass-panel p-10 mb-16 border-emerald-100/30">
             <blockquote className="text-2xl md:text-3xl font-sans font-medium text-emerald-800 leading-tight italic">
               "신앙과 기술, 그리고 예술을 연결하여 더 밝은 미래로 나아갑니다."
@@ -361,9 +419,75 @@ const VisionPage = ({ lang }: { lang: Language }) => {
   );
 };
 
-const Hero = ({ lang, setView }: { lang: Language, setView: (v: View) => void }) => {
+const InsightsPage = ({ lang }: { lang: Language }) => {
+  const posts = INSIGHTS_DATA(lang);
+
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-40 pb-20 overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="pt-40 pb-32 px-6 relative overflow-hidden"
+    >
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] bg-purple-50/40 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-50/40 blur-[100px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div className="max-w-2xl">
+              <h1 className="text-5xl md:text-6xl font-sans font-bold mb-6 tracking-tight text-[#1D1D1F]">
+                {lang === 'ko' ? '인사이트' : 'Insights'}
+              </h1>
+              <p className="text-xl text-black/40 font-medium">
+                {lang === 'ko' ? '리더십, 기술, 그리고 신앙에 관한 생각들.' : 'Thoughts on leadership, technology, and faith.'}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <motion.div
+              key={post.id}
+              whileTap={{ scale: 0.96 }}
+              className="apple-card p-8 group cursor-pointer flex flex-col h-full !bg-white !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50"
+            >
+              <div className="mb-6">
+                <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest", post.color)}>
+                  {post.category}
+                </span>
+              </div>
+              <h3 className="text-xl font-sans font-bold mb-4 group-hover:text-emerald-600 transition-colors leading-tight tracking-tight text-[#1D1D1F]">
+                {post.title}
+              </h3>
+              <p className="text-black/50 text-sm mb-8 leading-relaxed line-clamp-3 flex-grow">
+                {post.excerpt}
+              </p>
+              <div className="pt-6 border-t border-black/[0.05] flex items-center justify-between mt-auto">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">{post.date}</span>
+                <ArrowRight size={18} className="text-black/20 group-hover:text-black transition-all group-hover:translate-x-1" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const Hero = ({ lang }: { lang: Language }) => {
+  const navigate = useNavigate();
+
+  return (
+    <section className="relative min-h-[70vh] flex items-center pt-40 pb-20 overflow-hidden px-6">
       <div className="absolute inset-0 -z-10">
         <motion.div
           animate={{
@@ -393,7 +517,7 @@ const Hero = ({ lang, setView }: { lang: Language, setView: (v: View) => void })
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -402,20 +526,20 @@ const Hero = ({ lang, setView }: { lang: Language, setView: (v: View) => void })
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold leading-[1.1] mb-8 tracking-[-0.04em] text-[#1D1D1F]">
             {lang === 'ko' ? (
-              <>디지털 세상에서 만나는 <br className="hidden md:block" /> <span className="text-emerald-600">온전한 믿음</span>.</>
+              <>매일의 소음 속에서<br className="hidden md:block" /> <span className="text-emerald-600">지혜와 믿음을 지켜냅니다</span>.</>
             ) : (
-              <>Experiencing <span className="text-emerald-600">complete faith</span> <br className="hidden md:block" /> in the digital world.</>
+              <>Protecting wisdom and <br className="hidden md:block" /> <span className="text-emerald-600">faith</span> in the daily noise.</>
             )}
           </h1>
           <p className="text-xl md:text-2xl text-black/50 mb-12 max-w-2xl leading-relaxed font-medium">
             {lang === 'ko'
-              ? '나, 이웃, 그리고 하나님을 향한 믿음을 온전하게 경험하는 방식을 혁신하는 도구와 서비스를 만듭니다.'
-              : 'Creating tools and services that innovate how we fully experience faith towards ourselves, our neighbors, and God.'}
+              ? '나, 이웃, 하나님을 향한 믿음의 경험을 혁신하는 서비스를 만듭니다.'
+              : 'Creating services that innovate the experience of faith towards ourselves, our neighbors, and God.'}
           </p>
           <div className="flex flex-wrap gap-4">
             <button
               onClick={() => {
-                setView('projects');
+                navigate('/projects');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="bg-[#1D1D1F] text-white px-10 py-4 rounded-2xl font-semibold hover:bg-black transition-all shadow-xl shadow-black/10 active:scale-95 flex items-center justify-center"
@@ -424,7 +548,7 @@ const Hero = ({ lang, setView }: { lang: Language, setView: (v: View) => void })
             </button>
             <button
               onClick={() => {
-                setView('vision');
+                navigate('/vision');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="bg-white text-black border border-black/10 px-10 py-4 rounded-2xl font-semibold hover:bg-gray-50 transition-all active:scale-95"
@@ -438,8 +562,9 @@ const Hero = ({ lang, setView }: { lang: Language, setView: (v: View) => void })
   );
 };
 
-const Projects = ({ lang, setView }: { lang: Language, setView: (v: View) => void }) => {
+const Projects = ({ lang }: { lang: Language }) => {
   const projects = PROJECTS_DATA(lang);
+  const navigate = useNavigate();
 
   return (
     <section id="projects" className="section-padding bg-transparent relative overflow-hidden">
@@ -461,7 +586,7 @@ const Projects = ({ lang, setView }: { lang: Language, setView: (v: View) => voi
           className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-50/60 blur-[120px] rounded-full"
         />
       </div>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-[#1D1D1F]">
@@ -473,7 +598,7 @@ const Projects = ({ lang, setView }: { lang: Language, setView: (v: View) => voi
           </div>
           <button
             onClick={() => {
-              setView('projects');
+              navigate('/projects');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors"
@@ -517,38 +642,8 @@ const Projects = ({ lang, setView }: { lang: Language, setView: (v: View) => voi
 };
 
 const LatestInsights = ({ lang }: { lang: Language }) => {
-  const posts = [
-    {
-      id: 1,
-      category: lang === 'ko' ? '리더십' : 'Leadership',
-      title: lang === 'ko' ? '디지털 시대의 사회적 협동조합 리더십' : 'Social Cooperative Leadership in the Digital Age',
-      date: 'Feb 24, 2026',
-      excerpt: lang === 'ko'
-        ? '급변하는 기술 환경에서 신앙 기반의 가치가 어떻게 리더십 결정을 이끌 수 있는지 탐구합니다.'
-        : 'Exploring how faith-based values can guide leadership decisions in rapidly evolving tech landscapes.',
-      color: 'text-emerald-600 bg-emerald-50/50'
-    },
-    {
-      id: 2,
-      category: lang === 'ko' ? '개발 로그' : 'Dev Log',
-      title: lang === 'ko' ? '확장성을 위한 구축: Next.js와 Supabase 통합' : 'Building for Scale: Next.js and Supabase Integration',
-      date: 'Feb 20, 2026',
-      excerpt: lang === 'ko'
-        ? 'QOTD 앱을 위한 아키텍처 선택과 99.9% 업타임을 보장하는 방법에 대한 기술적 심층 분석입니다.'
-        : 'A technical deep dive into our architecture choices for the QOTD app and how we ensure 99.9% uptime.',
-      color: 'text-indigo-600 bg-indigo-50/50'
-    },
-    {
-      id: 3,
-      category: lang === 'ko' ? '인사이트' : 'Insights',
-      title: lang === 'ko' ? 'AI와 영성 묵상의 교차점' : 'The Intersection of AI and Spiritual Meditation',
-      date: 'Feb 15, 2026',
-      excerpt: lang === 'ko'
-        ? '생성형 AI가 기독교 명상과 예술에서 어떻게 새로운 창의적 표현의 문을 열고 있는지 알아봅니다.'
-        : 'How generative AI is opening new doors for creative expression in Christian meditation and art.',
-      color: 'text-amber-600 bg-amber-50/50'
-    }
-  ];
+  const posts = INSIGHTS_DATA(lang);
+  const navigate = useNavigate();
 
   return (
     <section id="insights" className="section-padding relative overflow-hidden bg-transparent">
@@ -571,7 +666,7 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-[#1D1D1F]">
@@ -581,7 +676,13 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
               {lang === 'ko' ? '리더십, 기술, 그리고 신앙에 관한 생각들.' : 'Thoughts on leadership, technology, and faith.'}
             </p>
           </div>
-          <button className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">
+          <button
+            onClick={() => {
+              navigate('/insights');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors"
+          >
             {lang === 'ko' ? '모든 글 보기' : 'View All Posts'}
           </button>
         </div>
@@ -665,7 +766,7 @@ const ContentAssistant = ({ lang }: { lang: Language }) => {
           className="absolute bottom-[20%] right-[-5%] w-[40%] h-[40%] bg-emerald-100/40 blur-[120px] rounded-full"
         />
       </div>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-sans font-bold mb-6 tracking-tight text-[#1D1D1F]">
@@ -719,8 +820,8 @@ const ContentAssistant = ({ lang }: { lang: Language }) => {
 
 const Footer = ({ lang }: { lang: Language }) => {
   return (
-    <footer id="contact" className="bg-[#1D1D1F] text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <footer id="contact" className="bg-[#1D1D1F] text-white py-16 px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-6">
@@ -762,29 +863,44 @@ const Footer = ({ lang }: { lang: Language }) => {
 
 export default function App() {
   const [lang, setLang] = useState<Language>('ko');
-  const [view, setView] = useState<View>('home');
+
+  // Helper component to scroll to top automatically on route change
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    useEffect(() => {
+      // Don't scroll to top if a hash is present (like #contact)
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+    }, [pathname]);
+    return null;
+  };
 
   return (
     <div className="min-h-screen">
-      <Navbar lang={lang} setLang={setLang} setView={setView} />
+      <ScrollToTop />
+      <Navbar lang={lang} setLang={setLang} />
       <main>
         <AnimatePresence mode="wait">
-          {view === 'home' && (
-            <motion.div
-              key="home"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Hero lang={lang} setView={setView} />
-              <Projects lang={lang} setView={setView} />
-              <LatestInsights lang={lang} />
-              <ContentAssistant lang={lang} />
-            </motion.div>
-          )}
-          {view === 'vision' && <VisionPage key="vision" lang={lang} />}
-          {view === 'projects' && <ProjectsPage key="projects" lang={lang} />}
+          <Routes>
+            <Route path="/" element={
+              <motion.div
+                key="home"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Hero lang={lang} />
+                <Projects lang={lang} />
+                <LatestInsights lang={lang} />
+                <ContentAssistant lang={lang} />
+              </motion.div>
+            } />
+            <Route path="/vision" element={<VisionPage key="vision" lang={lang} />} />
+            <Route path="/projects" element={<ProjectsPage key="projects" lang={lang} />} />
+            <Route path="/insights" element={<InsightsPage key="insights" lang={lang} />} />
+          </Routes>
         </AnimatePresence>
       </main>
       <Footer lang={lang} />
