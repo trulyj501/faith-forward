@@ -6,8 +6,8 @@ import matter from 'gray-matter';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
 
-const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8');
-const { render } = await import('./dist/server/entry-server.js');
+const template = fs.readFileSync(toAbsolute('dist/index.html'), 'utf-8');
+const { render } = await import('./.server/entry-server.js');
 
 // Helper to find all markdown files
 function getMarkdownFiles(dir) {
@@ -58,7 +58,7 @@ for (const url of routes) {
 
     // Determine output path
     const filePath = url === '/' ? 'index.html' : `${url.replace(/^\//, '')}/index.html`;
-    const absoluteFilePath = toAbsolute(`dist/static/${filePath}`);
+    const absoluteFilePath = toAbsolute(`dist/${filePath}`);
 
     // Create directory if it doesn't exist
     fs.mkdirSync(path.dirname(absoluteFilePath), { recursive: true });
@@ -78,7 +78,7 @@ ${routes.map(url => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-fs.writeFileSync(toAbsolute('dist/static/sitemap.xml'), sitemapXml);
+fs.writeFileSync(toAbsolute('dist/sitemap.xml'), sitemapXml);
 console.log('Generated: sitemap.xml');
 
 const robotsTxt = `User-agent: *
@@ -86,7 +86,7 @@ Allow: /
 
 Sitemap: ${domain}/sitemap.xml`;
 
-fs.writeFileSync(toAbsolute('dist/static/robots.txt'), robotsTxt);
+fs.writeFileSync(toAbsolute('dist/robots.txt'), robotsTxt);
 console.log('Generated: robots.txt');
 
 console.log('Static site generation complete.');

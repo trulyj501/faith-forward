@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "npm run build:client && npm run build:server && npm run prerender",
-    "build:client": "vite build --outDir dist/static",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "build:client": "vite build --outDir dist",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir .server",
     "prerender": "node prerender.js",
     "preview": "vite preview",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist .server",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

@@ -9,7 +9,6 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
-    // If we're building the client layer, we want it to output in dist/static
-    outDir: 'dist/static',
+    // If not SSR, vite defaults to `dist`
   }
 });
