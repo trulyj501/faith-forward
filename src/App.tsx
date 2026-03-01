@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, BookOpen, Sun, Zap, Play } from 'lucide-react';
 import { Link, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import { cn } from './lib/utils';
@@ -196,48 +195,45 @@ const Navbar = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => v
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-white/90 backdrop-blur-2xl border-t border-black/[0.05] p-8 md:hidden shadow-2xl"
-          >
-            <div className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                link.to ? (
-                  <Link
-                    key={link.name}
-                    to={link.to}
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className={cn(
-                      "text-2xl font-bold tracking-tight text-left",
-                      location.pathname === link.to ? "text-emerald-600" : "text-[#1D1D1F]"
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="text-2xl font-bold tracking-tight"
-                  >
-                    {link.name}
-                  </a>
-                )
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+      {isMobileMenuOpen && (
+        <div
+          className="absolute top-full left-0 right-0 bg-white/90 backdrop-blur-2xl border-t border-black/[0.05] p-8 md:hidden shadow-2xl"
+        >
+          <div className="flex flex-col gap-6">
+            {navLinks.map((link) => (
+              link.to ? (
+                <Link
+                  key={link.name}
+                  to={link.to}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className={cn(
+                    "text-2xl font-bold tracking-tight text-left",
+                    location.pathname === link.to ? "text-emerald-600" : "text-[#1D1D1F]"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-2xl font-bold tracking-tight"
+                >
+                  {link.name}
+                </a>
+              )
+            ))}
+          </div>
+        </div>
+      )}
+
     </nav>
   );
 };
@@ -246,10 +242,7 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
   const projects = PROJECTS_DATA(lang);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
@@ -258,10 +251,7 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <div
           className="mb-16"
         >
           <h1 className="text-5xl md:text-6xl font-sans font-bold mb-6 tracking-tight text-[#1D1D1F]">
@@ -272,7 +262,7 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
               ? '신앙과 기술의 경계에서 탄생한 Faith Forward의 혁신적인 도구들을 소개합니다.'
               : 'Introducing Faith Forward\'s innovative tools born at the intersection of faith and technology.'}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, idx) => (
@@ -308,16 +298,13 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 const VisionPage = ({ lang }: { lang: Language }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
@@ -326,10 +313,7 @@ const VisionPage = ({ lang }: { lang: Language }) => {
       </div>
 
       <div className="max-w-7xl mx-auto mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <div
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div className="max-w-2xl">
@@ -341,14 +325,11 @@ const VisionPage = ({ lang }: { lang: Language }) => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+        <div
         >
           <div className="glass-panel p-10 mb-16 border-emerald-100/30">
             <blockquote className="text-2xl md:text-3xl font-sans font-medium text-emerald-800 leading-tight italic">
@@ -414,9 +395,9 @@ const VisionPage = ({ lang }: { lang: Language }) => {
               <p className="text-sm text-black/40">Founder & Director, Faith Forward</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -424,10 +405,7 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
   const posts = INSIGHTS_DATA(lang);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
       className="pt-40 pb-32 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
@@ -436,10 +414,7 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+        <div
           className="mb-16"
         >
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
@@ -452,7 +427,7 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post) => (
@@ -479,7 +454,7 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -489,39 +464,19 @@ const Hero = ({ lang }: { lang: Language }) => {
   return (
     <section className="relative min-h-[70vh] flex items-center pt-40 pb-20 overflow-hidden px-6">
       <div className="absolute inset-0 -z-10">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full"
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -40, 0],
-            y: [0, -50, 0]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        <div
           className="hidden"
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.1, 0.2, 0.1]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-purple-200/20 blur-[140px] rounded-full"
         />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="max-w-4xl"
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold leading-[1.1] mb-8 tracking-[-0.04em] text-[#1D1D1F]">
@@ -556,7 +511,7 @@ const Hero = ({ lang }: { lang: Language }) => {
               {lang === 'ko' ? '우리의 비전' : 'Our Vision'}
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -569,20 +524,10 @@ const Projects = ({ lang }: { lang: Language }) => {
   return (
     <section id="projects" className="section-padding bg-transparent relative overflow-hidden">
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          animate={{
-            y: [0, 100, 0],
-            x: [0, -50, 0]
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-50/60 blur-[140px] rounded-full"
         />
-        <motion.div
-          animate={{
-            y: [0, -80, 0],
-            x: [0, 60, 0]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-50/60 blur-[120px] rounded-full"
         />
       </div>
@@ -651,20 +596,10 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
   return (
     <section id="insights" className="section-padding relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 -z-10">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0]
-          }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute top-[10%] right-[5%] w-[40%] h-[40%] bg-purple-100/30 blur-[130px] rounded-full"
         />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [0, -90, 0]
-          }}
-          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+        <div
           className="absolute bottom-[10%] left-[5%] w-[50%] h-[50%] bg-emerald-100/30 blur-[130px] rounded-full"
         />
       </div>
@@ -787,29 +722,24 @@ export default function App() {
       <ScrollToTop />
       <Navbar lang={lang} setLang={setLang} />
       <main>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={
-              <motion.div
-                key="home"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Hero lang={lang} />
-                <Projects lang={lang} />
-                <LatestInsights lang={lang} />
-              </motion.div>
-            } />
-            <Route path="/vision" element={<VisionPage lang={lang} />} />
-            <Route path="/projects" element={<ProjectsPage lang={lang} />} />
-            <Route path="/insights" element={<InsightsPage lang={lang} />} />
-            {/* Dynamic SSG Content Routes */}
-            <Route path="/:category" element={<ContentList lang={lang} />} />
-            <Route path="/:category/:slug" element={<ContentDetail lang={lang} />} />
-          </Routes>
-        </AnimatePresence>
+        <Routes>
+          <Route path="/" element={
+            <div
+              key="home"
+            >
+              <Hero lang={lang} />
+              <Projects lang={lang} />
+              <LatestInsights lang={lang} />
+            </div>
+          } />
+          <Route path="/vision" element={<VisionPage lang={lang} />} />
+          <Route path="/projects" element={<ProjectsPage lang={lang} />} />
+          <Route path="/insights" element={<InsightsPage lang={lang} />} />
+          {/* Dynamic SSG Content Routes */}
+          <Route path="/:category" element={<ContentList lang={lang} />} />
+          <Route path="/:category/:slug" element={<ContentDetail lang={lang} />} />
+        </Routes>
+
       </main>
       <Footer lang={lang} />
     </div>
