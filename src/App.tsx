@@ -90,6 +90,34 @@ const INSIGHTS_DATA = (lang: Language) => [
 
 type Language = 'ko' | 'en';
 
+const PreloadComponent = () => {
+  useEffect(() => {
+    // Preload heavy components in the background after initial paint
+    setTimeout(() => {
+      import('./components/ContentAssistant');
+    }, 2500);
+  }, []);
+  return null;
+};
+
+const ContentAssistantSkeleton = ({ lang }: { lang: Language }) => (
+  <section className="section-padding bg-transparent relative overflow-hidden px-6 min-h-[400px]">
+    <div className="max-w-7xl mx-auto">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="animate-pulse">
+          <div className="h-12 bg-black/5 rounded-2xl w-3/4 mb-6"></div>
+          <div className="h-4 bg-black/5 rounded-full w-full mb-3"></div>
+          <div className="h-4 bg-black/5 rounded-full w-5/6 mb-8"></div>
+        </div>
+        <div className="glass-panel p-8 animate-pulse">
+          <div className="h-4 bg-black/5 w-24 mb-3 rounded-full"></div>
+          <div className="w-full bg-black/5 rounded-2xl p-5 min-h-[120px]"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const Navbar = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -779,6 +807,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      <PreloadComponent />
       <ScrollToTop />
       <Navbar lang={lang} setLang={setLang} />
       <main>
@@ -795,7 +824,7 @@ export default function App() {
                 <Hero lang={lang} />
                 <Projects lang={lang} />
                 <LatestInsights lang={lang} />
-                <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-black/20">Loading AI Assistant...</div>}>
+                <Suspense fallback={<ContentAssistantSkeleton lang={lang} />}>
                   <ContentAssistant lang={lang} />
                 </Suspense>
               </motion.div>
