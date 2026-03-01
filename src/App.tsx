@@ -23,7 +23,7 @@ const PROJECTS_DATA = (lang: Language) => [
       </div>
     ),
     color: 'bg-rose-50',
-    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/qotd_morning_bible.png',
+    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/qotd_morning_bible.webp',
     url: 'https://qotd.faithfwd.cc',
   },
   {
