@@ -2,56 +2,139 @@
 
 @theme {
   --font-sans: "Pretendard Variable", "Pretendard", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-brand-yellow: #FFE400;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Site color tokens — keep existing palette */
   --color-brand-dark: #1D1D1F;
-  --color-apple-gray: #F5F5F7;
+  --color-brand-bg: #FBFBFD;
+  --color-brand-muted: #F5F5F7;
+  --color-border: #E5E5E5;
+
+  /* Typography tracking tokens */
+  --tracking-display: -0.05em;
+  --tracking-heading: -0.04em;
+  --tracking-label: 0.12em;
+  --tracking-body: -0.01em;
+}
+
+/* ── Grain texture overlay ─────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
 }
 
 @layer base {
   body {
-    @apply bg-[#FBFBFD] text-[#1D1D1F] antialiased font-sans tracking-[-0.01em] leading-relaxed;
+    @apply bg-[#FBFBFD] text-[#1D1D1F] antialiased font-sans leading-relaxed;
+    letter-spacing: var(--tracking-body);
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-semibold tracking-[-0.03em] text-[#1D1D1F];
+    @apply font-bold text-[#1D1D1F];
+    letter-spacing: var(--tracking-heading);
+    line-height: 1.1;
   }
 }
 
+/* ── Layout ────────────────────────────────────────── */
 @layer components {
+  .section-padding {
+    @apply py-24 md:py-32 px-6;
+  }
+
+  /* ── Cards ─────────────────────────────────────── */
+  /* Minimal, border-driven — editorial style */
+  .editorial-card {
+    @apply bg-white border border-[#E5E5E5] transition-colors duration-150;
+  }
+
+  .editorial-card:hover {
+    @apply border-[#C5C5C5];
+  }
+
+  /* apple-card — simplified from glassmorphism to clean editorial */
+  .apple-card {
+    @apply bg-white border border-[#EBEBEB] overflow-hidden transition-all duration-300;
+    border-radius: 1.25rem;
+  }
+
+  .apple-card:hover {
+    @apply border-[#D0D0D0] shadow-md shadow-black/5;
+  }
+
+  /* glass-panel — kept for VisionPage, toned down */
+  .glass-panel {
+    @apply bg-white/80 border border-black/[0.06] rounded-3xl shadow-sm;
+  }
+
+  /* ── Buttons ────────────────────────────────────── */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 bg-[#1D1D1F] text-white px-8 py-3.5 font-semibold text-sm uppercase transition-all duration-150 active:translate-y-px;
+    letter-spacing: var(--tracking-label);
+    border-radius: 0.875rem;
+  }
+
+  .btn-primary:hover {
+    @apply bg-black;
+  }
+
+  .btn-secondary {
+    @apply relative inline-flex items-center justify-center gap-2 border border-[#1D1D1F] text-[#1D1D1F] bg-transparent px-8 py-3.5 font-semibold text-sm uppercase transition-all duration-150 active:translate-y-px;
+    letter-spacing: var(--tracking-label);
+    border-radius: 0.875rem;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-[#1D1D1F] text-white;
+  }
+
+  /* ── Label mono ─────────────────────────────────── */
+  .label-mono {
+    @apply font-mono text-base font-bold uppercase text-black/40;
+    letter-spacing: var(--tracking-label);
+  }
+
+  /* ── Nav ────────────────────────────────────────── */
   .glass-nav {
     @apply bg-white/70 backdrop-blur-xl border-b border-black/[0.05] sticky top-0 z-50;
   }
 
-  .apple-card {
-    @apply bg-white/60 md:bg-white/30 md:backdrop-blur-xl rounded-[2.5rem] border border-white/40 shadow-xl shadow-blue-900/5 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-2 overflow-hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+  /* ── Divider ────────────────────────────────────── */
+  .section-divider {
+    @apply w-full h-px bg-[#E5E5E5];
   }
 
-  .glass-panel {
-    @apply bg-white/60 md:bg-white/20 md:backdrop-blur-3xl border border-white/30 rounded-[3.5rem] shadow-xl shadow-black/5;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
+  /* ── Text balance ──────────────────────────────── */
+  .text-balance {
+    text-wrap: balance;
   }
 
-  .section-padding {
-    @apply py-16;
+  /* ── Emerald underline link ─────────────────────── */
+  .emerald-link {
+    @apply relative inline-flex items-center gap-1 text-emerald-600 font-semibold;
   }
-}
 
-.text-balance {
-  text-wrap: balance;
-}
+  .emerald-link::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600 origin-left transition-transform duration-150;
+  }
 
-.btn-primary {
-  @apply bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-all shadow-sm active:scale-95;
-}
+  .emerald-link:hover::after {
+    transform: scaleX(1.06);
+  }
 
-.link-blue {
-  @apply text-blue-600 font-medium hover:underline inline-flex items-center gap-1;
-}
-
-.section-padding {
-  @apply py-16 px-6;
+  /* ── link-blue (legacy) ─────────────────────────── */
+  .link-blue {
+    @apply text-blue-600 font-medium hover:underline inline-flex items-center gap-1;
+  }
 }

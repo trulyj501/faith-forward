@@ -1,12 +1,12 @@
 ---
 title: "QOTD 앱"
 slug: "qotd"
-excerpt: "의도적인 아침을 시작하기 위해 엄선된 영성 문구를 제공하는 일일 묵상 도구입니다."
+excerpt: "바쁜 일상 속에서도 매일 꾸준하게 말씀과 만나는 묵상 습관을 길러주는 데일리 큐티 앱"
 subtitle: "오늘의 말씀"
 publishedDate: "2026-03-01"
 tags: ["react", "spirituality", "daily"]
-image: "https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/qotd_morning_bible.webp"
-url: "https://qotd.faithfwd.cc"
+image: "/images/qotd_morning_bible.webp"
+url: "https://qotd.cc"
 ---
 
 # QOTD 앱 (오늘의 말씀)

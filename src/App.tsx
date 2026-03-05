@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, BookOpen, Sun, Zap, Play } from 'lucide-react';
+import { Menu, X, ArrowRight, BookOpen, Sun, Zap, Play, ExternalLink, ArrowUpRight } from 'lucide-react';
 import { Link, useLocation, useNavigate, Routes, Route } from 'react-router-dom';
 import { cn } from './lib/utils';
 import ContentList from './pages/ContentList';
@@ -192,7 +192,7 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {projects.map((project) => (
             <div
               key={project.slug}
@@ -200,9 +200,9 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
                 navigate(`/projects/${project.slug}`);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="apple-card group flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu cursor-pointer"
+              className="apple-card group cursor-pointer flex flex-col overflow-hidden active:scale-[0.98] transform-gpu bg-white shadow-xl shadow-black/[0.03]"
             >
-              <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
+              <div className="w-full aspect-[16/9] overflow-hidden bg-[#F5F5F7]">
                 <img
                   src={(project as any).image}
                   alt={project.title}
@@ -210,17 +210,36 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-
-              <div className="w-full h-auto sm:h-full p-5 lg:p-6 flex flex-col text-left justify-between">
-                <h3 className="text-[20px] lg:text-[24px] font-bold text-[#1f2937] mb-2 tracking-tight">{project.title}</h3>
-                <p className="text-slate-600 text-[14px] lg:text-[15px] leading-[1.6] line-clamp-1 md:line-clamp-2 flex-grow tracking-[-0.01em]">
+              <div className="p-8 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-[#1D1D1F] mb-3" style={{ letterSpacing: '-0.03em' }}>{project.title}</h3>
+                <p className="text-[#636366] text-base leading-[1.6] line-clamp-2 flex-grow mb-6" style={{ letterSpacing: '-0.01em' }}>
                   {project.excerpt}
                 </p>
-                <div
-                  className="flex items-center text-emerald-600 text-[14px] lg:text-[16px] font-medium mt-3 lg:mt-auto hover:text-emerald-700 transition-colors tracking-tight group/link"
-                >
-                  <span>{lang === 'ko' ? '상세 보기' : 'View Detail'}</span>
-                  <ArrowRight className="ml-1.5 w-4 h-4 transition-transform group-hover/link:translate-x-1" strokeWidth={1.5} />
+                <div className="flex items-center gap-6 mt-4 font-sans">
+                  {(project as any).url && (
+                    <a
+                      href={(project as any).url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="group/url inline-flex items-center gap-1 text-[#059669] text-[0.93rem] font-bold relative w-fit hover:text-emerald-700 transition-colors"
+                    >
+                      <span>{lang === 'ko' ? '사이트 가기' : 'Visit Site'}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/url:-translate-y-0.5 group-hover/url:translate-x-0.5" strokeWidth={2.5} />
+                    </a>
+                  )}
+
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/projects/${project.slug}`);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="group/link inline-flex items-center gap-1 text-black/40 text-[0.93rem] font-bold relative w-fit cursor-pointer hover:text-black transition-colors"
+                  >
+                    <span>{lang === 'ko' ? '스토리 보기' : 'Read Story'}</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" strokeWidth={2} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -271,7 +290,7 @@ const VisionPage = ({ lang }: { lang: Language }) => {
 
           <div className="space-y-12 text-lg md:text-xl text-black/70 leading-relaxed font-medium">
             <p>
-              안녕하세요. 소셜 협동조합 Faith Forward의 대표 리나(Lina)입니다.
+              안녕하세요. Faith Forward입니다.
             </p>
 
             <p>
@@ -312,7 +331,7 @@ const VisionPage = ({ lang }: { lang: Language }) => {
             <div className="pt-8">
               <h3 className="text-3xl font-bold text-[#1D1D1F] mb-6">{lang === 'ko' ? '함께 나아가는 발걸음' : 'Steps Taken Together'}</h3>
               <p>
-                소셜 협동조합으로서 우리가 지향하는 바는 명확합니다. 뛰어난 서비스를 만드는 것을 넘어, 같은 비전을 품은 사람들과 연대하고 우리가 만든 도구들이 사회적으로 선한 영향력을 흘려보내는 통로가 되는 것입니다.
+                우리가 지향하는 바는 명확합니다. 뛰어난 서비스를 만드는 것을 넘어, 같은 비전을 품은 사람들과 연대하고 우리가 만든 도구들이 사회적으로 선한 영향력을 흘려보내는 통로가 되는 것입니다.
               </p>
               <p className="mt-6">
                 멈춰 있지 않고 끊임없이 앞으로(Forward) 향하는 우리의 발걸음이, 여러분의 일상에 작은 기쁨과 빛이 되기를 소망합니다.
@@ -320,8 +339,7 @@ const VisionPage = ({ lang }: { lang: Language }) => {
             </div>
 
             <div className="pt-16 border-t border-black/5">
-              <p className="font-bold text-[#1D1D1F]">Lina Jeong</p>
-              <p className="text-sm text-black/40">Founder & Director, Faith Forward</p>
+              <p className="text-sm text-black/40">Faith Forward</p>
             </div>
           </div>
         </div>
@@ -364,27 +382,27 @@ const InsightsPage = ({ lang }: { lang: Language }) => {
             <div
               key={post.slug}
               onClick={() => {
-                navigate(`/insights/${post.slug}`);
+                navigate(`/ insights / ${post.slug} `);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="apple-card p-8 group cursor-pointer flex flex-col h-full !bg-white !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
+              className="apple-card p-10 group cursor-pointer flex flex-col active:scale-[0.98] transform-gpu bg-white shadow-xl shadow-black/[0.03]"
             >
               <div className="mb-6">
-                <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest", (post as any).color || 'bg-black/5 text-black/60')}>
+                <span className="px-4 py-1.5 text-[11px] font-bold uppercase bg-black/5 text-black/50" style={{ letterSpacing: '0.12em' }}>
                   {(post as any).label || post.category}
                 </span>
               </div>
-              <h3 className="text-xl font-sans font-bold mb-4 group-hover:text-emerald-600 transition-colors leading-tight tracking-tight text-[#1D1D1F]">
+              <h3 className="text-2xl font-bold mb-4 group-hover:text-emerald-600 transition-colors text-[#1D1D1F]" style={{ letterSpacing: '-0.03em', lineHeight: 1.25 }}>
                 {post.title}
               </h3>
-              <p className="text-black/50 text-sm mb-8 leading-relaxed line-clamp-3 flex-grow">
+              <p className="text-[#636366] text-base mb-10 leading-[1.6] line-clamp-3 flex-grow">
                 {post.excerpt}
               </p>
-              <div className="pt-6 border-t border-black/[0.05] flex items-center justify-between mt-auto">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">
-                  {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+              <div className="pt-6 border-t border-[#E5E5E5] flex items-center justify-between">
+                <span className="text-sm font-medium text-black/40 font-sans" style={{ letterSpacing: '0' }}>
+                  {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}
                 </span>
-                <ArrowRight size={18} className="text-black/20 group-hover:text-black transition-all group-hover:translate-x-1" />
+                <ArrowRight size={18} strokeWidth={1.5} className="text-black/20 group-hover:text-emerald-600 transition-all duration-150 group-hover:translate-x-1" />
               </div>
             </div>
           ))}
@@ -398,57 +416,54 @@ const Hero = ({ lang }: { lang: Language }) => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-40 pb-20 overflow-hidden px-6">
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full hidden md:block"
-        />
-        <div
-          className="hidden"
-        />
-        <div
-          className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-purple-200/20 blur-[140px] rounded-full hidden md:block"
-        />
+    <section className="relative min-h-[70vh] flex items-center pt-40 pb-24 overflow-hidden px-6">
+      {/* Gradient background orbs */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full hidden md:block" />
+        <div className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-purple-200/20 blur-[140px] rounded-full hidden md:block" />
+        <div className="absolute top-[-5%] right-[5%] w-[30%] h-[30%] bg-emerald-100/30 blur-[100px] rounded-full hidden md:block" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <div
-          className="max-w-4xl"
-        >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold leading-[1.1] mb-8 tracking-[-0.04em] text-[#1D1D1F]">
+        <div className="max-w-4xl">
+          <h1
+            className="font-sans font-bold text-[#1D1D1F] mb-8"
+            style={{ fontSize: 'clamp(2.75rem, 7vw, 5.5rem)', letterSpacing: '-0.05em', lineHeight: 1.15 }}
+          >
             {lang === 'ko' ? (
-              <>흔들리는 세상에서,<br className="hidden md:block" /> <span className="text-emerald-600">믿음만은 단단하게.</span></>
+              <>흔들리는 세상에서,<br /> <span className="text-emerald-600">믿음만은 단단하게.</span></>
             ) : (
-              <>Protecting wisdom and <br className="hidden md:block" /> <span className="text-emerald-600">faith</span> in the daily noise.</>
+              <>Faith holds firm<br /> <span className="text-emerald-600">in a noisy world.</span></>
             )}
           </h1>
-          <p className="text-xl md:text-2xl text-black/50 mb-12 max-w-2xl leading-relaxed font-medium">
-            {lang === 'ko'
-              ? '디지털 소음 속, 믿음을 지켜내는 서비스를 만듭니다.'
-              : 'Creating services that innovate the experience of faith towards ourselves, our neighbors, and God.'}
+
+          <p className="text-xl md:text-2xl text-black/50 mb-14 max-w-2xl leading-[1.6] font-medium" style={{ letterSpacing: '-0.01em' }}>
+            {lang === 'ko' ? (
+              <>디지털 소음 속, 일상을 지키는<br /> 믿음의 습관과 서비스를 연구하고 개발합니다.</>
+            ) : (
+              'Designing tools of faith that stand strong in the age of digital noise.'
+            )}
           </p>
+
+          {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
             <button
-              onClick={() => {
-                navigate('/projects');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="bg-[#1D1D1F] text-white px-10 py-4 rounded-2xl font-semibold hover:bg-black transition-all shadow-xl shadow-black/10 active:scale-95 flex items-center justify-center"
+              onClick={() => { navigate('/projects'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="btn-primary"
             >
               {lang === 'ko' ? '프로젝트 탐색' : 'Explore Projects'}
+              <ArrowRight size={16} strokeWidth={1.5} />
             </button>
             <button
-              onClick={() => {
-                navigate('/vision');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="bg-white text-black border border-black/10 px-10 py-4 rounded-2xl font-semibold hover:bg-gray-50 transition-all active:scale-95"
+              onClick={() => { navigate('/vision'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="btn-secondary"
             >
               {lang === 'ko' ? '우리의 비전' : 'Our Vision'}
             </button>
           </div>
         </div>
       </div>
+
     </section>
   );
 };
@@ -458,33 +473,23 @@ const Projects = ({ lang }: { lang: Language }) => {
   const navigate = useNavigate();
 
   return (
-    <section id="projects" className="section-padding bg-transparent relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="absolute top-[-20%] right-[-10%] w-[60%] h-[60%] bg-emerald-50/60 blur-[140px] rounded-full hidden md:block"
-        />
-        <div
-          className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-50/60 blur-[120px] rounded-full hidden md:block"
-        />
-      </div>
+    <section id="projects" className="section-padding bg-transparent">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-[#1D1D1F]">
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 border-b border-[#E5E5E5] pb-8">
+          <div>
+            {/* Label removed */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-[-0.04em] text-[#1D1D1F] leading-[1.1]">
               {lang === 'ko' ? '주요 프로젝트' : 'Key Projects'}
             </h2>
-            <p className="text-lg md:text-xl text-black/40 font-medium">
-              {lang === 'ko' ? '디지털 세상에서 신앙을 경험하는 방식을 혁신합니다.' : 'Transforming how we experience faith in a digital world.'}
-            </p>
           </div>
           <button
-            onClick={() => {
-              navigate('/projects');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors"
+            onClick={() => { navigate('/projects'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="group relative inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm uppercase shrink-0"
+            style={{ letterSpacing: '0.1em' }}
           >
             {lang === 'ko' ? '전체 보기' : 'View All'}
+            <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-150 group-hover:translate-x-1" />
           </button>
         </div>
 
@@ -492,13 +497,10 @@ const Projects = ({ lang }: { lang: Language }) => {
           {projects.map((project) => (
             <div
               key={project.slug}
-              onClick={() => {
-                navigate(`/projects/${project.slug}`);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="apple-card group cursor-pointer flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
+              onClick={() => { navigate(`/projects/${project.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="apple-card group cursor-pointer flex flex-col overflow-hidden active:scale-[0.98] transform-gpu bg-white shadow-xl shadow-black/[0.03]"
             >
-              <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
+              <div className="w-full aspect-[16/9] overflow-hidden bg-[#F5F5F7]">
                 <img
                   src={(project as any).image}
                   alt={project.title}
@@ -506,15 +508,36 @@ const Projects = ({ lang }: { lang: Language }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-
-              <div className="w-full h-auto sm:h-full p-5 lg:p-6 flex flex-col text-left justify-between">
-                <h3 className="text-[20px] lg:text-[24px] font-bold text-[#1f2937] mb-2 tracking-tight">{project.title}</h3>
-                <p className="text-slate-600 text-[14px] lg:text-[15px] leading-[1.6] line-clamp-1 md:line-clamp-2 flex-grow tracking-[-0.01em]">
+              <div className="p-8 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold text-[#1D1D1F] mb-3" style={{ letterSpacing: '-0.03em' }}>{project.title}</h3>
+                <p className="text-[#636366] text-base leading-[1.6] line-clamp-2 flex-grow mb-6" style={{ letterSpacing: '-0.01em' }}>
                   {project.excerpt}
                 </p>
-                <div className="flex items-center text-emerald-600 text-[14px] lg:text-[16px] font-medium mt-3 lg:mt-auto hover:text-emerald-700 transition-colors tracking-tight group/link">
-                  <span>{lang === 'ko' ? '상세 보기' : 'View Detail'}</span>
-                  <ArrowRight className="ml-1.5 w-4 h-4 transition-transform group-hover/link:translate-x-1" strokeWidth={1.5} />
+                <div className="flex items-center gap-6 mt-4 font-sans">
+                  {(project as any).url && (
+                    <a
+                      href={(project as any).url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="group/url inline-flex items-center gap-1 text-[#059669] text-[0.93rem] font-bold relative w-fit hover:text-emerald-700 transition-colors"
+                    >
+                      <span>{lang === 'ko' ? '사이트 가기' : 'Visit Site'}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/url:-translate-y-0.5 group-hover/url:translate-x-0.5" strokeWidth={2.5} />
+                    </a>
+                  )}
+
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/projects/${project.slug}`);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="group/link inline-flex items-center gap-1 text-black/40 text-[0.93rem] font-bold relative w-fit cursor-pointer hover:text-black transition-colors"
+                  >
+                    <span>{lang === 'ko' ? '스토리 보기' : 'Read Story'}</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" strokeWidth={2} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -530,63 +553,49 @@ const LatestInsights = ({ lang }: { lang: Language }) => {
   const navigate = useNavigate();
 
   return (
-    <section id="insights" className="section-padding relative overflow-hidden bg-transparent">
-      <div className="absolute inset-0 -z-10">
-        <div
-          className="absolute top-[10%] right-[5%] w-[40%] h-[40%] bg-purple-100/30 blur-[130px] rounded-full hidden md:block"
-        />
-        <div
-          className="absolute bottom-[10%] left-[5%] w-[50%] h-[50%] bg-emerald-100/30 blur-[130px] rounded-full hidden md:block"
-        />
-      </div>
-
+    <section id="insights" className="section-padding bg-[#F5F5F7]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-sans font-bold mb-4 tracking-tight text-[#1D1D1F]">
+        {/* Section header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 border-b border-[#E0E0E0] pb-8">
+          <div>
+            {/* Label removed */}
+            <h2 className="text-4xl md:text-5xl font-bold tracking-[-0.04em] text-[#1D1D1F] leading-[1.1]">
               {lang === 'ko' ? '최신 인사이트' : 'Latest Insights'}
             </h2>
-            <p className="text-lg md:text-xl text-black/40 font-medium">
-              {lang === 'ko' ? '리더십, 기술, 그리고 신앙에 관한 생각들.' : 'Thoughts on leadership, technology, and faith.'}
-            </p>
           </div>
           <button
-            onClick={() => {
-              navigate('/insights');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-sm font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors"
+            onClick={() => { navigate('/insights'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="group relative inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm uppercase shrink-0"
+            style={{ letterSpacing: '0.1em' }}
           >
-            {lang === 'ko' ? '모든 글 보기' : 'View All Posts'}
+            {lang === 'ko' ? '모든 글 보기' : 'View All'}
+            <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-150 group-hover:translate-x-1" />
           </button>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {posts.map((post) => (
             <div
               key={post.slug}
-              onClick={() => {
-                navigate(`/insights/${post.slug}`);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="apple-card p-8 group cursor-pointer flex flex-col transition-transform active:scale-[0.98] transform-gpu border border-black/[0.05] hover:border-black/10 hover:shadow-xl hover:shadow-black/5 rounded-3xl"
+              onClick={() => { navigate(`/insights/${post.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="apple-card p-7 group cursor-pointer flex flex-col active:scale-[0.98] transform-gpu bg-white"
             >
-              <div className="mb-6">
-                <span className={cn("px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest", (post as any).color || 'bg-black/5 text-black/60')}>
+              <div className="mb-5">
+                <span className={cn("px-3 py-1 text-[10px] font-bold uppercase", (post as any).color || 'bg-black/5 text-black/50')} style={{ letterSpacing: '0.12em' }}>
                   {(post as any).label || post.category}
                 </span>
               </div>
-              <h3 className="text-xl font-sans font-bold mb-4 group-hover:text-emerald-600 transition-colors leading-tight tracking-tight text-[#1D1D1F]">
+              <h3 className="text-lg font-bold mb-3 group-hover:text-emerald-600 transition-colors text-[#1D1D1F]" style={{ letterSpacing: '-0.03em', lineHeight: 1.25 }}>
                 {post.title}
               </h3>
-              <p className="text-black/50 text-sm mb-8 leading-relaxed line-clamp-3 flex-grow">
+              <p className="text-[#737373] text-sm mb-6 leading-[1.6] line-clamp-3 flex-grow">
                 {post.excerpt}
               </p>
-              <div className="pt-6 border-t border-black/[0.05] flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-black/20">
-                  {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+              <div className="pt-5 border-t border-[#E5E5E5] flex items-center justify-between">
+                <span className="text-sm font-medium text-black/40 font-sans" style={{ letterSpacing: '0' }}>
+                  {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}
                 </span>
-                <ArrowRight size={18} className="text-black/20 group-hover:text-black transition-all group-hover:translate-x-1" />
+                <ArrowRight size={16} strokeWidth={1.5} className="text-black/20 group-hover:text-emerald-600 transition-all duration-150 group-hover:translate-x-1" />
               </div>
             </div>
           ))}
@@ -611,14 +620,14 @@ const Footer = ({ lang }: { lang: Language }) => {
             </div>
             <p className="text-white/40 max-w-sm leading-relaxed text-base font-medium">
               {lang === 'ko'
-                ? '신앙과 기술을 더 밝고 인간적인 미래로 안내하는 데 전념하는 사회적 협동조합입니다.'
-                : 'A social cooperative dedicated to guiding faith and technology toward a brighter, more human future.'}
+                ? '기독교 가치관과 기술로 영적 성장을 돕고, 믿음의 서비스를 전수합니다.'
+                : 'Helping spiritual growth through Christian values and technology, passing on services of faith.'}
             </p>
           </div>
           <div>
             <h4 className="font-bold mb-6 text-xs uppercase tracking-[0.2em] text-white/30">{lang === 'ko' ? '연결' : 'Connect'}</h4>
             <ul className="space-y-4 text-white/50 text-sm font-medium">
-              <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="https://www.linkedin.com/in/faith-foward-40a5ab3a2/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
             </ul>
@@ -631,9 +640,8 @@ const Footer = ({ lang }: { lang: Language }) => {
             </ul>
           </div>
         </div>
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-white/20 text-xs font-medium">
-          <p>© 2026 Faith Forward Social Cooperative. {lang === 'ko' ? '모든 권리 보유.' : 'All rights reserved.'}</p>
-          <p>{lang === 'ko' ? '리나에 의해 설립됨' : 'Founded by Lina'}</p>
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-center items-center gap-4 text-white/20 text-xs font-medium">
+          <p>© 2026 Faith Forward</p>
         </div>
       </div>
     </footer>

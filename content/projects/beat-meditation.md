@@ -1,12 +1,12 @@
 ---
 title: "비트 위의 묵상"
 slug: "beat-meditation"
-excerpt: "예술, 음악, 기술이 어우러진 AI 생성 기독교 명상 콘텐츠입니다."
-subtitle: "AI 명상"
-publishedDate: "2026-02-25"
-tags: ["ai", "meditation", "art", "music"]
-image: "https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/meditation_bg.jpg"
-url: "https://meditation.faithfwd.cc"
+excerpt: "예수님이 가르쳐주신 성경 말씀, 기억하기 쉽게 암송과 영어 랩으로 만나요! 눈과 귀를 사로잡는 쇼츠"
+subtitle: "유튜브 채널"
+publishedDate: "2026-03-01"
+tags: ["shorts", "bible", "rap", "music"]
+image: "/images/meditation_bg.jpg"
+url: "https://www.youtube.com/@hiqotd"
 ---
 
 # 비트 위의 묵상
