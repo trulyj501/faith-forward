@@ -7,8 +7,12 @@ export interface ContentItem {
     tags?: string[];
     publishedDate?: string;
     subtitle?: string;
+    image?: string;
+    url?: string;
+    label?: string;
+    color?: string;
     content: string; // the raw markdown body
-    category: 'projects' | 'experiments' | 'essays';
+    category: 'projects' | 'experiments' | 'insights';
 }
 
 // In Vite, this gathers all markdown files in the specified directories

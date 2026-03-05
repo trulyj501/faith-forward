@@ -8,49 +8,6 @@ import { getContentByCategory } from './lib/content';
 
 // --- Constants & Data ---
 
-const PROJECTS_DATA = (lang: Language) => [
-  {
-    id: 'qotd',
-    title: lang === 'ko' ? 'QOTD 앱' : 'QOTD App',
-    subtitle: lang === 'ko' ? '오늘의 말씀' : 'Quote of the Day',
-    description: lang === 'ko'
-      ? '의도적인 아침을 시작하기 위해 엄선된 영성 문구를 제공하는 일일 묵상 도구입니다.'
-      : 'A daily reflection tool providing curated spiritual quotes to start your morning with intention.',
-    icon: (
-      <div className="relative inline-flex mb-2">
-        <BookOpen className="text-slate-600 w-6 h-6" strokeWidth={1.5} />
-        <Sun className="text-amber-400 w-3.5 h-3.5 absolute -top-1 -right-1" strokeWidth={2.5} />
-      </div>
-    ),
-    color: 'bg-rose-50',
-    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/qotd_morning_bible.webp',
-    url: 'https://qotd.faithfwd.cc',
-  },
-  {
-    id: 'ragecheck',
-    title: lang === 'ko' ? '레이지체크' : 'Ragecheck',
-    subtitle: lang === 'ko' ? '감정 관리' : 'Emotion Management',
-    description: lang === 'ko'
-      ? '마음 챙김 성찰과 기록을 통해 감정을 확인하고 관리하는 도구입니다.'
-      : 'A tool for checking and managing emotions through mindful reflection and tracking.',
-    icon: <Zap className="text-amber-500" />,
-    color: 'bg-amber-50',
-    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/ragecheck_bg.jpg',
-    url: 'https://ragecheck.faithfwd.cc',
-  },
-  {
-    id: 'beat-meditation',
-    title: lang === 'ko' ? '비트 위의 묵상' : 'Beat Meditation',
-    subtitle: lang === 'ko' ? 'AI 명상' : 'AI Meditation',
-    description: lang === 'ko'
-      ? '예술, 음악, 기술이 어우러진 AI 생성 기독교 명상 콘텐츠입니다.'
-      : 'AI-generated Christian meditation content blending art, music, and technology.',
-    icon: <Play className="text-indigo-500" />,
-    color: 'bg-indigo-50',
-    image: 'https://cdn.jsdelivr.net/gh/trulyj501/faith-foward@main/public/images/meditation_bg.jpg',
-    url: 'https://meditation.faithfwd.cc',
-  }
-];
 
 
 
@@ -209,7 +166,8 @@ const Navbar = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => v
 };
 
 const ProjectsPage = ({ lang }: { lang: Language }) => {
-  const projects = PROJECTS_DATA(lang);
+  const projects = getContentByCategory('projects');
+  const navigate = useNavigate();
 
   return (
     <div
@@ -235,14 +193,18 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+          {projects.map((project) => (
             <div
-              key={project.id}
-              className="apple-card group flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
+              key={project.slug}
+              onClick={() => {
+                navigate(`/projects/${project.slug}`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="apple-card group flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu cursor-pointer"
             >
               <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
                 <img
-                  src={project.image}
+                  src={(project as any).image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
@@ -252,17 +214,14 @@ const ProjectsPage = ({ lang }: { lang: Language }) => {
               <div className="w-full h-auto sm:h-full p-5 lg:p-6 flex flex-col text-left justify-between">
                 <h3 className="text-[20px] lg:text-[24px] font-bold text-[#1f2937] mb-2 tracking-tight">{project.title}</h3>
                 <p className="text-slate-600 text-[14px] lg:text-[15px] leading-[1.6] line-clamp-1 md:line-clamp-2 flex-grow tracking-[-0.01em]">
-                  {project.description}
+                  {project.excerpt}
                 </p>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
                   className="flex items-center text-emerald-600 text-[14px] lg:text-[16px] font-medium mt-3 lg:mt-auto hover:text-emerald-700 transition-colors tracking-tight group/link"
                 >
                   <span>{lang === 'ko' ? '상세 보기' : 'View Detail'}</span>
                   <ArrowRight className="ml-1.5 w-4 h-4 transition-transform group-hover/link:translate-x-1" strokeWidth={1.5} />
-                </a>
+                </div>
               </div>
             </div>
           ))}
@@ -458,14 +417,14 @@ const Hero = ({ lang }: { lang: Language }) => {
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-sans font-bold leading-[1.1] mb-8 tracking-[-0.04em] text-[#1D1D1F]">
             {lang === 'ko' ? (
-              <>매일의 소음 속에서<br className="hidden md:block" /> <span className="text-emerald-600">지혜와 믿음을 지켜냅니다</span>.</>
+              <>흔들리는 세상에서,<br className="hidden md:block" /> <span className="text-emerald-600">믿음만은 단단하게.</span></>
             ) : (
               <>Protecting wisdom and <br className="hidden md:block" /> <span className="text-emerald-600">faith</span> in the daily noise.</>
             )}
           </h1>
           <p className="text-xl md:text-2xl text-black/50 mb-12 max-w-2xl leading-relaxed font-medium">
             {lang === 'ko'
-              ? '나, 이웃, 하나님을 향한 믿음의 경험을 혁신하는 서비스를 만듭니다.'
+              ? '디지털 소음 속, 믿음을 지켜내는 서비스를 만듭니다.'
               : 'Creating services that innovate the experience of faith towards ourselves, our neighbors, and God.'}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -495,7 +454,7 @@ const Hero = ({ lang }: { lang: Language }) => {
 };
 
 const Projects = ({ lang }: { lang: Language }) => {
-  const projects = PROJECTS_DATA(lang);
+  const projects = getContentByCategory('projects');
   const navigate = useNavigate();
 
   return (
@@ -530,18 +489,18 @@ const Projects = ({ lang }: { lang: Language }) => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+          {projects.map((project) => (
             <div
-              key={project.id}
+              key={project.slug}
               onClick={() => {
-                navigate(`/projects`);
+                navigate(`/projects/${project.slug}`);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="apple-card group cursor-pointer flex flex-col sm:grid sm:grid-rows-2 aspect-auto sm:aspect-[4/5] overflow-hidden !bg-white !bg-none !rounded-[1.25rem] shadow-[0px_4px_16px_rgba(17,17,26,0.05),_0px_8px_32px_rgba(17,17,26,0.05)] border border-slate-100/50 transition-transform active:scale-[0.98] transform-gpu"
             >
               <div className="w-full aspect-[3/2] sm:aspect-auto h-auto sm:h-full overflow-hidden bg-[#e5eee3] shrink-0">
                 <img
-                  src={project.image}
+                  src={(project as any).image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
@@ -551,7 +510,7 @@ const Projects = ({ lang }: { lang: Language }) => {
               <div className="w-full h-auto sm:h-full p-5 lg:p-6 flex flex-col text-left justify-between">
                 <h3 className="text-[20px] lg:text-[24px] font-bold text-[#1f2937] mb-2 tracking-tight">{project.title}</h3>
                 <p className="text-slate-600 text-[14px] lg:text-[15px] leading-[1.6] line-clamp-1 md:line-clamp-2 flex-grow tracking-[-0.01em]">
-                  {project.description}
+                  {project.excerpt}
                 </p>
                 <div className="flex items-center text-emerald-600 text-[14px] lg:text-[16px] font-medium mt-3 lg:mt-auto hover:text-emerald-700 transition-colors tracking-tight group/link">
                   <span>{lang === 'ko' ? '상세 보기' : 'View Detail'}</span>
