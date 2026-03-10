@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 
 @theme {
   --font-sans: "Pretendard Variable", "Pretendard", "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -32,7 +34,7 @@ body::before {
 
 @layer base {
   body {
-    @apply bg-[#FBFBFD] text-[#1D1D1F] antialiased font-sans leading-relaxed;
+    @apply bg-[#FBFBFD] text-[#1D1D1F] antialiased font-sans leading-relaxed text-[17px];
     letter-spacing: var(--tracking-body);
   }
 
@@ -42,14 +44,14 @@ body::before {
   h4 {
     @apply font-bold text-[#1D1D1F];
     letter-spacing: var(--tracking-heading);
-    line-height: 1.1;
+    line-height: 1.15;
   }
 }
 
 /* ── Layout ────────────────────────────────────────── */
 @layer components {
   .section-padding {
-    @apply py-24 md:py-32 px-6;
+    @apply py-12 md:py-16 px-6 sm:px-10 md:px-16 lg:px-24;
   }
 
   /* ── Cards ─────────────────────────────────────── */
@@ -136,5 +138,20 @@ body::before {
   /* ── link-blue (legacy) ─────────────────────────── */
   .link-blue {
     @apply text-blue-600 font-medium hover:underline inline-flex items-center gap-1;
+  }
+
+  /* ── Markdown Content ────────────────────────────── */
+  .markdown-body {
+    white-space: pre-wrap;
+  }
+
+  .markdown-body ol {
+    list-style-type: disc !important;
+  }
+
+  /* ── Remove default " " quotes from prose blockquotes ─ */
+  .prose blockquote p::before,
+  .prose blockquote p::after {
+    content: none !important;
   }
 }

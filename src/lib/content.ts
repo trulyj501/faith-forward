@@ -11,8 +11,9 @@ export interface ContentItem {
     url?: string;
     label?: string;
     color?: string;
+    rating?: number;
     content: string; // the raw markdown body
-    category: 'projects' | 'experiments' | 'insights';
+    category: 'services' | 'insights' | 'prompts';
 }
 
 // In Vite, this gathers all markdown files in the specified directories
@@ -25,37 +26,37 @@ export const getAllContent = (): ContentItem[] => {
     const allContent: ContentItem[] = [];
 
     for (const path in rawContentModules) {
-        const rawMarkdown = rawContentModules[path] as string;
+        let rawMarkdown = (rawContentModules[path] as string).replace(/\r\n/g, '\n');
 
-        // Determine category from path (.../content/projects/qotd.md -> projects)
+        // Determine category from path (.../content/services/qotd.md -> services)
         const categoryMatch = path.match(/content\/(.*?)\//);
         const category = categoryMatch ? categoryMatch[1] : 'unknown';
 
-        // Very basic frontmatter parser (assuming --- blocks)
-        // For a real production app with complex markdown, 'gray-matter' is used during build,
-        // but here we can parse the raw string directly since 'import.meta.glob' gives us raw strings in the client/SSR bundle.
-
-        const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
-        const match = rawMarkdown.match(frontmatterRegex);
+        // More robust frontmatter split
+        const parts = rawMarkdown.split('---\n');
 
         let metadata: Partial<ContentItem> = {};
         let content = rawMarkdown;
 
-        if (match) {
-            const fmString = match[1];
-            content = rawMarkdown.replace(frontmatterRegex, '').trim();
+        if (parts.length >= 3 && rawMarkdown.startsWith('---')) {
+            const fmString = parts[1];
+            content = parts.slice(2).join('---\n').trim();
 
             // Parse simple key: value pairs from frontmatter
             const lines = fmString.split('\n');
             lines.forEach(line => {
-                const [key, ...valueParts] = line.split(':');
-                if (key && valueParts.length > 0) {
-                    const val = valueParts.join(':').trim().replace(/^"|"$/g, ''); // Remove quotes
-                    const cleanKey = key.trim() as keyof ContentItem;
+                const colonIndex = line.indexOf(':');
+                if (colonIndex !== -1) {
+                    const key = line.slice(0, colonIndex).trim();
+                    const val = line.slice(colonIndex + 1).trim().replace(/^"|"$/g, '');
+                    const cleanKey = key as keyof ContentItem;
 
                     if (cleanKey === 'tags') {
-                        // handle arrays like ["react", "spirituality"]
                         metadata[cleanKey] = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^"|"$/g, ''));
+                    } else if (cleanKey === 'rating') {
+                        metadata[cleanKey] = parseFloat(val);
+                    } else if (cleanKey === 'publishedDate') {
+                        metadata[cleanKey] = val;
                     } else {
                         (metadata as any)[cleanKey] = val;
                     }

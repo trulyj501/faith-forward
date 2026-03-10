@@ -26,7 +26,7 @@ function getMarkdownFiles(dir) {
 }
 
 // 1. Determine all routes
-const routes = ['/', '/vision', '/projects', '/insights'];
+const routes = ['/', '/vision', '/projects', '/insights', '/contact'];
 
 // Add routes for content collections
 const contentDirs = ['experiments', 'projects', 'insights'];
@@ -54,7 +54,7 @@ for (const url of routes) {
     // Inject rendered HTML and Helmet meta tags into the template
     let finalHtml = template
         .replace(`<!--app-html-->`, html)
-        .replace(`<!--app-head-->`, `<title>Faith Forward</title>`);
+        .replace(`<!--app-head-->`, `<title>Faith Forward — 혼란스런 세상에서, 믿음만은 단단하게.</title>`);
 
     // Determine output path
     const filePath = url === '/' ? 'index.html' : `${url.replace(/^\//, '')}/index.html`;
