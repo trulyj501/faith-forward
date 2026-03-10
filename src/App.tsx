@@ -356,24 +356,122 @@ const VisionPage = () => {
   );
 };
 
+// ── Shared Tag Filter Component ──
+const TagFilterList = ({ tags, activeTag, onTagClick }: { tags: string[], activeTag: string, onTagClick: (tag: string) => void }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(tags.length);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const calculateVisible = () => {
+      if (!measureRef.current || !containerRef.current) return;
+      const containerWidth = containerRef.current.clientWidth;
+      const children = Array.from(measureRef.current.children) as HTMLElement[];
+      if (children.length === 0) return;
+
+      const gap = 8;
+      let totalWidth = 0;
+      for (let i = 0; i < tags.length; i++) {
+        totalWidth += children[i].offsetWidth + gap;
+      }
+      totalWidth -= gap;
+
+      if (totalWidth <= containerWidth) {
+        setVisibleCount(tags.length);
+        return;
+      }
+
+      const toggleBtnWidth = children[tags.length].offsetWidth;
+      let currentWidth = 0;
+      let count = 0;
+      for (let i = 0; i < tags.length; i++) {
+        const tagW = children[i].offsetWidth;
+        if (currentWidth + tagW + gap + toggleBtnWidth > containerWidth) {
+          break;
+        }
+        currentWidth += tagW + gap;
+        count++;
+      }
+
+      setVisibleCount(Math.max(1, count));
+    };
+
+    calculateVisible();
+    window.addEventListener('resize', calculateVisible);
+    const timer = setTimeout(calculateVisible, 50);
+    return () => {
+      window.removeEventListener('resize', calculateVisible);
+      clearTimeout(timer);
+    };
+  }, [tags]);
+
+  const hiddenCount = tags.length - visibleCount;
+
+  return (
+    <div className="mb-6 md:mb-8 w-full" ref={containerRef}>
+      {/* Hidden measure container */}
+      <div
+        ref={measureRef}
+        className="fixed invisible opacity-0 pointer-events-none -z-10 flex flex-nowrap items-center gap-2 left-0 top-0"
+        aria-hidden="true"
+      >
+        {tags.map(tag => (
+          <button
+            key={`measure-${tag}`}
+            className="px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap border"
+          >
+            #{tag}
+          </button>
+        ))}
+        {/* Mock toggle button for measurement */}
+        <button className="px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap bg-white border">
+          {hiddenCount > 0 ? `${hiddenCount}개 보기` : `${tags.length}개 보기`}
+        </button>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-start gap-2 transition-all duration-300">
+        {(isExpanded ? tags : tags.slice(0, visibleCount)).map(tag => (
+          <button
+            key={tag}
+            onClick={() => onTagClick(tag)}
+            className={cn(
+              "px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 transform active:scale-95 whitespace-nowrap",
+              activeTag === tag
+                ? "bg-[#1D1D1F] text-white shadow-md border border-[#1D1D1F]"
+                : "bg-gray-100/80 text-gray-500 hover:bg-gray-200 hover:text-black hover:shadow-sm border border-transparent"
+            )}
+          >
+            #{tag}
+          </button>
+        ))}
+
+        {!isExpanded && hiddenCount > 0 && (
+          <button
+            onClick={() => setIsExpanded(true)}
+            className="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-emerald-600 border border-emerald-100/80 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-300 transform active:scale-95 whitespace-nowrap flex items-center justify-center shadow-sm"
+          >
+            {hiddenCount}개 보기
+          </button>
+        )}
+
+        {isExpanded && hiddenCount > 0 && (
+          <button
+            onClick={() => setIsExpanded(false)}
+            className="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-emerald-600 border border-emerald-100/80 hover:bg-emerald-50 hover:border-emerald-200 transition-all duration-300 transform active:scale-95 whitespace-nowrap flex items-center justify-center shadow-sm"
+          >
+            접기 <ChevronDown size={14} className="ml-1 rotate-180" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const InsightsPage = () => {
   const allPosts = getContentByCategory('insights');
   const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState('전체');
-  const [isTagsExpanded, setIsTagsExpanded] = useState(false);
-  const tagsRef = useRef<HTMLDivElement>(null);
-  const [showTagsToggle, setShowTagsToggle] = useState(false);
-
-  useEffect(() => {
-    const checkHeight = () => {
-      if (tagsRef.current) {
-        setShowTagsToggle(tagsRef.current.scrollHeight > 50);
-      }
-    };
-    setTimeout(checkHeight, 50);
-    window.addEventListener('resize', checkHeight);
-    return () => window.removeEventListener('resize', checkHeight);
-  }, []);
 
   // Create a mapping of slug to its global index (descending)
   const postsWithGlobalIndex = allPosts.map((post, index) => ({
@@ -403,39 +501,7 @@ const InsightsPage = () => {
         </div>
 
         {/* Categories / Tags Filtering */}
-        <div className="mb-6 md:mb-8">
-          <div
-            ref={tagsRef}
-            className={cn(
-              "flex flex-wrap items-center justify-start gap-2 overflow-hidden transition-all duration-300",
-              isTagsExpanded ? "max-h-[500px]" : "max-h-[44px]"
-            )}
-          >
-            {tags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                className={cn(
-                  "px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 transform active:scale-95 whitespace-nowrap",
-                  activeTag === tag
-                    ? "bg-[#1D1D1F] text-white shadow-md border border-[#1D1D1F]"
-                    : "bg-gray-100/80 text-gray-500 hover:bg-gray-200 hover:text-black hover:shadow-sm border border-transparent"
-                )}
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
-          {showTagsToggle && (
-            <button
-              onClick={() => setIsTagsExpanded(!isTagsExpanded)}
-              className="mt-3 text-[13px] font-bold text-gray-400 hover:text-emerald-600 flex items-center gap-1 active:scale-95 transition-all w-fit"
-            >
-              {isTagsExpanded ? '접기' : '더보기'}
-              <ChevronDown size={14} strokeWidth={2.5} className={cn("transition-transform duration-300", isTagsExpanded ? "rotate-180" : "")} />
-            </button>
-          )}
-        </div>
+        <TagFilterList tags={tags} activeTag={activeTag} onTagClick={setActiveTag} />
 
         <div className="space-y-16">
           {Object.entries(groupedPosts).map(([category, posts]) => (
@@ -499,20 +565,6 @@ const PromptsPage = () => {
   const allPosts = getContentByCategory('prompts');
   const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState('전체');
-  const [isTagsExpanded, setIsTagsExpanded] = useState(false);
-  const tagsRef = useRef<HTMLDivElement>(null);
-  const [showTagsToggle, setShowTagsToggle] = useState(false);
-
-  useEffect(() => {
-    const checkHeight = () => {
-      if (tagsRef.current) {
-        setShowTagsToggle(tagsRef.current.scrollHeight > 50);
-      }
-    };
-    setTimeout(checkHeight, 50);
-    window.addEventListener('resize', checkHeight);
-    return () => window.removeEventListener('resize', checkHeight);
-  }, []);
 
   const tags = ['전체', '영성/묵상', '콘텐츠제작', '기획/분석', 'IT/기술'];
 
@@ -548,39 +600,7 @@ const PromptsPage = () => {
         </div>
 
         {/* Categories / Tags Filtering */}
-        <div className="mb-6 md:mb-8">
-          <div
-            ref={tagsRef}
-            className={cn(
-              "flex flex-wrap items-center justify-start gap-2 overflow-hidden transition-all duration-300",
-              isTagsExpanded ? "max-h-[500px]" : "max-h-[44px]"
-            )}
-          >
-            {tags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                className={cn(
-                  "px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 transform active:scale-95 whitespace-nowrap",
-                  activeTag === tag
-                    ? "bg-[#1D1D1F] text-white shadow-md border border-[#1D1D1F]"
-                    : "bg-gray-100/80 text-gray-500 hover:bg-gray-200 hover:text-black hover:shadow-sm border border-transparent"
-                )}
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
-          {showTagsToggle && (
-            <button
-              onClick={() => setIsTagsExpanded(!isTagsExpanded)}
-              className="mt-3 text-[13px] font-bold text-gray-400 hover:text-emerald-600 flex items-center gap-1 active:scale-95 transition-all w-fit"
-            >
-              {isTagsExpanded ? '접기' : '더보기'}
-              <ChevronDown size={14} strokeWidth={2.5} className={cn("transition-transform duration-300", isTagsExpanded ? "rotate-180" : "")} />
-            </button>
-          )}
-        </div>
+        <TagFilterList tags={tags} activeTag={activeTag} onTagClick={setActiveTag} />
 
         {/* Card Grid */}
         <div className="grid md:grid-cols-2 gap-6">
