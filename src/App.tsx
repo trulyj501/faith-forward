@@ -1005,11 +1005,7 @@ const LatestInsights = () => {
 
                 </span>
                 <div className="flex items-center gap-3">
-                  {(post as any).rating != null && (
-                    <RecommendationBadge rating={(post as any).rating} size="sm" />
 
-
-                  )}
                   <ArrowRight size={16} strokeWidth={1.5} className="text-black/20 group-hover:text-emerald-600 transition-all duration-150 group-hover:translate-x-1" />
                 </div>
               </div>
