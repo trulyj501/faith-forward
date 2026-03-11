@@ -1,10 +1,10 @@
 ---
-title: "AI 이미지 속 한글 깨짐 해결하기: 경쟁자와의 협업"
+title: "AI 이미지 속 한글 깨짐 해결기"
 slug: "solving-korean-font-ai"
 excerpt: "이미니 생성 AI에서 한글 오타와 깨짐 문제를 해결한 경험. 텍스트를 이미로 활용한 발상의 전환 이야기."
 publishedDate: "2026-02-07"
 rating: 3.0
-label: "포워드 제작일지"
+label: "FFD작업실"
 color: "text-blue-600 bg-blue-50/50"
 ---
 
@@ -37,9 +37,5 @@ but the text image itself must remain unchanged.
 한글이 깨지지 않고 AI이미지카드가 생성되었고, 블레싱우체국을 오픈할 수 있었다.
 구글이 준 API 300달러 크레딧이 있어 현재는 무료 서비스로 제공이 가능하다. 계산해보니 8,000장 정도를 무료로 만들 수 있고 현재 7,700장 정도가 남았다. 아래에서 이용 가능
 
-- https://blessing.qotd.cc/
+>- https://blessing.qotd.cc/
 
-
-
-
-+2

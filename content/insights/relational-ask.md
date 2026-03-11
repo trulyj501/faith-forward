@@ -4,7 +4,7 @@ slug: "relational-ask"
 excerpt: "단순한 요구를 넘어 관계와 맥락을 먼저 세우는 협상의 기술에 대해 알아봅니다."
 publishedDate: "2026-03-01"
 rating: 3.5
-label: "관계"
+label: "커뮤니케이션"
 color: "text-blue-600 bg-blue-50/50"
 ---
 

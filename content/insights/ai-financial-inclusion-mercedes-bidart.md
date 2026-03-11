@@ -4,7 +4,7 @@ slug: "ai-financial-inclusion-mercedes-bidart"
 excerpt: "금융 기록이 없어 소외된 이들에게 AI가 어떻게 '신뢰'라는 보이지 않는 화폐를 찾아주는지 살펴봅니다."
 publishedDate: "2026-02-17"
 rating: 5.0
-label: "AI & 기술"
+label: "AI"
 color: "text-blue-600 bg-blue-50/50"
 ---
 

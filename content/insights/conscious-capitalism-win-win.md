@@ -4,7 +4,7 @@ slug: "conscious-capitalism-win-win"
 excerpt: "이기주의에서 벗어나 나, 상대방, 그리고 공동체 모두가 승리하는 비즈니스 철학을 탐구합니다."
 publishedDate: "2026-02-19"
 rating: 4.0
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

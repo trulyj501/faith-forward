@@ -4,7 +4,7 @@ slug: "reid-hoffman-2026-predictions"
 excerpt: "레이드 호프먼이 바라보는 2026년의 AI: 모든 개인이 1인 기업가로 거듭나는 시대."
 publishedDate: "2026-02-17"
 rating: 4.0
-label: "트렌드"
+label: "AI"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

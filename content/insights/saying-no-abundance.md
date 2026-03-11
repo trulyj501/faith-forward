@@ -4,7 +4,7 @@ slug: "saying-no-abundance"
 excerpt: "모든 것을 만들 수 있는 풍요의 시대에 왜 '절제'와 '거절'이 더 중요한 가치가 되는지 살펴봅니다."
 publishedDate: "2026-03-03"
 rating: 4.5
-label: "제품 리더십"
+label: "일하는방식"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 > "나는 내가 생성한 것만큼이나, 

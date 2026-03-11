@@ -1,16 +1,15 @@
 ---
-title: "AI와 영성 묵상의 교차점"
-slug: "intersection-of-ai-and-spirituality"
-excerpt: "생성형 AI가 기독교 명상과 예술에서 어떻게 새로운 창의적 표현의 문을 열고 있는지 알아봅니다."
+title: "기후 위기를 풍자하는 패러디 사이트, 오일 웰니스"
+slug: "oilwell-wellness"
+excerpt: "기후 위기와 환경 오염 기업들의 위선을 명상 앱 콘셉트로 풍자한 웹사이트 '오일 웰니스'를 소개합니다."
 publishedDate: "2026-02-15"
-rating: 5.0
-label: "케이스 스터디"
+label: "레퍼런스"
 color: "text-amber-600 bg-amber-50/50"
 ---
 
 
 거대 화석 연료 기업들의 홍보를 맡아 기후 위기를 은폐하거나 미화하는 것을 비판하기 위해 세계적인 홍보 대행사 '에델만(Edelman)'의 재밌지만 의미있는 프로젝트를 제미나이의 번역으로 소개합니다.
-- 바로 oilwell.app, 기후 위기를 풍자하는 패러디 웰니스(명상) 웹사이트입니다.
+>- 바로 [oilwell.app](https://oilwell.app/), 기후 위기를 풍자하는 패러디 웰니스(명상) 웹사이트입니다.
 
 이 사이트의 주요 특징과 내용은 다음과 같습니다.
 
@@ -33,9 +32,4 @@ color: "text-amber-600 bg-amber-50/50"
 
 요약하자면, 이 사이트는 환경 오염을 주도하는 기업들과 그들을 돕는 홍보 업계의 위선을 비판하기 위해 만들어진 블랙 코미디 성격의 웹사이트입니다.
 
-웹사이트: https://oilwell.app/
-번역/정리: 제미나이xFFD
 한줄평: headspace 가 떠오르는 명상이었는데요. oilwell 이라는 작명부터가 너무 센스 있어서 사이트 보면서 한참을 웃었...
-
-Oilwell - Meditate through the meltdown
-oilwell.app

@@ -4,7 +4,7 @@ slug: "after-ai-no-product"
 excerpt: "AI가 가져온 생산성 혁명 속에서 '제품'의 정의와 희소성이 어떻게 변하고 있는지 탐구합니다."
 publishedDate: "2026-03-04"
 rating: 3.5
-label: "AI & 기술"
+label: "AI"
 color: "text-purple-600 bg-purple-50/50"
 ---
 *Sidu Ponnappa의 에세이  [After AI, There Is No Product](https://sidu.in/essays/after-ai-there-is-no-product.html)의 핵심 내용을 한국어로 요약해봤습니다.* 

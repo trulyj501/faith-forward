@@ -4,7 +4,7 @@ slug: "faith-miracles-life"
 excerpt: "일상의 소소한 고장 앞에서 멈추지 않고 계속 시도하는 것. 그것이 믿음의 본질임을 깨달은 기록입니다."
 publishedDate: "2026-02-05"
 rating: 4.0
-label: "포워드 제작일지"
+label: "FFD작업실"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

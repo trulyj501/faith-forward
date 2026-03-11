@@ -4,7 +4,7 @@ slug: "what-jobs-are-made-of"
 excerpt: "AI가 일자리를 뺏는 것이 아니라, 일자리를 구성하는 '과업'들을 재구성하고 있습니다."
 publishedDate: "2026-02-16"
 rating: 4.0
-label: "포워드 씽킹"
+label: "일하는방식"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

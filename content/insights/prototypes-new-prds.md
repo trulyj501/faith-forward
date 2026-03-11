@@ -4,7 +4,7 @@ slug: "prototypes-new-prds"
 excerpt: "문서 뒤에 숨지 않고 실제 작동하는 결과물로 소통할 때 팀은 더 창의적이고 효율적으로 변합니다."
 publishedDate: "2026-02-08"
 rating: 3.0
-label: "트렌드"
+label: "프로덕트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 > - 더 나은 제품을 더 빠르게!

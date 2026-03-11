@@ -4,7 +4,7 @@ slug: "the-joy-of-building-slow"
 excerpt: "하이퍼 성장의 각본에서 벗어나, 소프트웨어를 천천히 그리고 의미 있게 만들어가는 여정에 대하여."
 publishedDate: "2026-03-03"
 rating: 5.0
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 

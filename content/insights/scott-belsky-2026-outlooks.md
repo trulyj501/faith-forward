@@ -4,7 +4,7 @@ slug: "scott-belsky-2026-outlooks"
 excerpt: "어도비 CSO 스콧 벨스키가 예측하는 AI 시대의 기술, 산업, 그리고 인간성."
 publishedDate: "2026-02-15"
 rating: 3.5
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

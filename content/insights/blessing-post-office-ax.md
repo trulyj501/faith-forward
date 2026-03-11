@@ -4,7 +4,7 @@ slug: "blessing-post-office-ax"
 excerpt: "기획부터 개발까지 AI와 협업하여 만든 미니 프로젝트. 새로운 협업의 리듬을 경험하다."
 publishedDate: "2026-02-04"
 rating: 5.0
-label: "포워드 제작일지"
+label: "FFD작업실"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

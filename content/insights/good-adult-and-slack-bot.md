@@ -4,7 +4,7 @@ slug: "good-adult-and-slack-bot"
 excerpt: "책임감 있는 어른에 대한 단상, 그리고 관심 있는 아티클을 놓치지 않기 위한 AI 코드 자동화 실험."
 publishedDate: "2026-02-11"
 rating: 4.5
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

@@ -4,7 +4,7 @@ slug: "humanity-centered-design"
 excerpt: "디자인계의 거장 도널드 노먼이 주창하는 '지속 가능성과 책임'의 시대를 위한 디자인 원칙."
 publishedDate: "2026-02-14"
 rating: 4.5
-label: "포워드 씽킹"
+label: "프로덕트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 

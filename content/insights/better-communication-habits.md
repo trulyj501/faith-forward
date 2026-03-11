@@ -4,7 +4,7 @@ slug: "better-communication-habits"
 excerpt: "질문이라는 이름의 책임 떠넘기기에서 벗어나, 팀의 생산성을 높이는 커뮤니케이션 방식을 제안합니다."
 publishedDate: "2026-02-27"
 rating: 3.5
-label: "관계"
+label: "커뮤니케이션"
 color: "text-blue-600 bg-blue-50/50"
 ---
 > - "어떻게 생각하세요?"라고 타이핑하고 싶을 때 잠시 멈추세요. 

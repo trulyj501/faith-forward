@@ -4,7 +4,7 @@ slug: "tars-framework-product"
 excerpt: "단순히 기능을 만드는 것을 넘어, 그것이 비즈니스 목표에 어떤 기여를 했는지 증명하는 가이드."
 publishedDate: "2026-02-09"
 rating: 4.5
-label: "제품 리더십"
+label: "프로덕트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 

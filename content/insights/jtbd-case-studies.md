@@ -4,7 +4,7 @@ slug: "jtbd-case-studies"
 excerpt: "제품의 기능이 아니라 사용자가 처한 '상황'과 '동기'에 집중할 때 마법 같은 성장이 일어납니다."
 publishedDate: "2026-02-06"
 rating: 4.5
-label: "제품 리더십"
+label: "프로덕트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 

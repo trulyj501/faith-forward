@@ -4,7 +4,7 @@ slug: "junior-devs-ai-age"
 excerpt: "주니어를 키우지 못하는 조직은 취약합니다. AI 시대에 주니어를 채용해야 하는 더 전략적인 이유들."
 publishedDate: "2026-02-21"
 rating: 4.0
-label: "트렌드"
+label: "일하는방식"
 color: "text-blue-600 bg-blue-50/50"
 ---
 

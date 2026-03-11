@@ -4,7 +4,7 @@ slug: "innovation-market-bottleneck"
 excerpt: "생산성 둔화의 진짜 원인은 아이디어의 부족이 아니라 시장 구조의 병목 현상에 있다는 새로운 분석."
 publishedDate: "2026-02-10"
 rating: 5.0
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 

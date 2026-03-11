@@ -4,7 +4,7 @@ slug: "collective-efficacy"
 excerpt: "효능감의 상실과 무기력의 시대, 우리에게 필요한 것은 '함께 행동하면 바뀔 수 있다'는 믿음입니다."
 publishedDate: "2026-02-26"
 rating: 5.0
-label: "포워드 씽킹"
+label: "인사이트"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

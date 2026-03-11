@@ -4,7 +4,7 @@ slug: "lenny-transcripts-creativity"
 excerpt: "레니의 팟캐스트 대본 공개 사례로 본 커뮤니케이션과 오픈 데이터의 힘."
 publishedDate: "2026-02-20"
 rating: 5.0
-label: "케이스 스터디"
+label: "인사이트"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

@@ -4,7 +4,7 @@ slug: "the-done-list-productivity-ai"
 excerpt: "AI가 중간 노동을 대신하는 시대, 인간의 역할은 '수행'이 아닌 '의도'와 '결정'으로 이동합니다."
 publishedDate: "2026-02-12"
 rating: 4.5
-label: "트렌드"
+label: "일하는방식"
 color: "text-cyan-600 bg-cyan-50/50"
 ---
 

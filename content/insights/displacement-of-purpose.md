@@ -4,7 +4,7 @@ slug: "displacement-of-purpose"
 excerpt: "효율이 아닌 의미의 재배치 관점에서 AI와 자동화가 가져올 변화를 고찰합니다."
 publishedDate: "2026-02-28"
 rating: 4.0
-label: "AI & 기술"
+label: "AI"
 color: "text-amber-600 bg-amber-50/50"
 ---
 

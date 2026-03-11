@@ -4,7 +4,7 @@ slug: "qotd-visual-meditation"
 excerpt: "매일의 묵상 기록에 AI의 상상력을 더해 시각적인 영감을 얻는 실험적 프로젝트입니다."
 publishedDate: "2026-02-13"
 rating: 4.0
-label: "포워드 제작일지"
+label: "FFD작업실"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

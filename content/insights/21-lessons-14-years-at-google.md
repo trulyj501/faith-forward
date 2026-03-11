@@ -4,7 +4,7 @@ slug: "21-lessons-14-years-at-google"
 excerpt: "Addy Osmani가 구글에서 14년간 근무하며 배운 기술보다 중요한 사람과 문제 해결에 대한 통찰."
 publishedDate: "2026-02-14"
 rating: 4.0
-label: "제품 리더십"
+label: "일하는방식"
 color: "text-red-600 bg-red-50/50"
 ---
 

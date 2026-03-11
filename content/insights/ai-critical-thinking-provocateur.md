@@ -4,7 +4,7 @@ slug: "ai-critical-thinking-provocateur"
 excerpt: "비판적 사고를 죽이는 AI가 아닌, 우리를 더 깊이 생각하게 만드는 AI 활용법."
 publishedDate: "2026-02-18"
 rating: 5.0
-label: "AI & 기술"
+label: "AI"
 color: "text-purple-600 bg-purple-50/50"
 ---
 

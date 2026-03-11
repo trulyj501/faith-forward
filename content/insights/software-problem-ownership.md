@@ -4,24 +4,22 @@ slug: "software-problem-ownership"
 excerpt: "AI 시대에 사람들이 여전히 SaaS를 구매하는 이유: 해결책이 아닌 책임을 사기 때문입니다."
 publishedDate: "2026-03-02"
 rating: 3.5
-label: "제품 리더십"
+label: "프로덕트"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 
 
-AI는 만들어주지만, SaaS는 결정해줍니다.
 
-“이제 AI로 웬만한 건 다 만들 수 있는데,
-왜 아직도 SaaS를 쓰는 걸까?”
-겉으로 보면 답은 이렇습니다.
+이제 AI로 웬만한 건 다 만들 수 있는데, 
+왜 아직도 SaaS를 쓰는 걸까? 겉으로 보면 답은 이렇습니다. 
 - 기능이 더 이상 희소하지 않다.
 
-하지만 사람들은 여전히 소프트웨어에 돈을 씁니다.
-이유는 간단합니다.
-- 사람들은 해결책을 사는 게 아니라
-‘문제를 대신 소유해 줄 누군가’를 삽니다.
+**하지만 사람들은 여전히 소프트웨어에 돈을 씁니다. 그 이유는 간단합니다.**
+- 사람들은 해결책을 사는 게 아니라 ‘문제를 대신 소유해 줄 누군가’를 삽니다.
 
+AI는 만들어주지만, SaaS는 결정해준다는 [Quinn Keast의 What, then, are we paying for?](https://quinnkeast.com/writing/software-is-problem-ownership) 글을 요약해봤습니다.
 
+---
 ### 해결책을 만드는 것 vs 문제를 소유하는 것
 생성형 AI는
 - 특정 순간에
@@ -79,17 +77,3 @@ AI 시대의 SaaS는
 당신의 제품은 지금
 무엇을 팔고 있나요?
 
-영감을 받은 글: https://lnkd.in/gT4piuAn
-구성/편집: 챗GPT X FFD
-
-위 글은 Quinn Keast의 “Software is Problem Ownership” 에서 출발해,
-AI 시대 SaaS의 관점으로 재구성한 생각입니다.
-개인적으로 원문 글을 읽으며 느낀 건,
-AI는 SaaS를 대체하기보다
-SaaS가 무엇을 책임져야 하는지를
-더 또렷하게 만들고 있다는 점이었습니다.
-
-What, then, are we paying for?
-quinnkeast.com
-like
-1

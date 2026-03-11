@@ -4,7 +4,7 @@ slug: "ragecheck-media-literacy"
 excerpt: "정보의 사실 여부를 넘어, 뉴스가 나의 감정을 조작하고 있지는 않은지 분석해주는 도구를 소개합니다."
 publishedDate: "2026-02-25"
 rating: 3.5
-label: "케이스 스터디"
+label: "레퍼런스"
 color: "text-emerald-600 bg-emerald-50/50"
 ---
 
