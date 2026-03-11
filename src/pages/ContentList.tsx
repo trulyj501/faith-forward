@@ -22,7 +22,7 @@ const RecommendationBadge = ({ rating }: { rating: number | string }) => {
 const CATEGORY_LABELS: Record<string, { ko: string; sub_ko: string }> = {
     services: {
         ko: '서비스',
-        sub_ko: '신앙과 기술의 경계에서 만들어가는 것들',
+        sub_ko: '불필요한 소음을 걷어내고 삶의 본질과 방향을 짚어주는 도구들',
     },
     insights: {
         ko: '인사이트',
@@ -30,7 +30,7 @@ const CATEGORY_LABELS: Record<string, { ko: string; sub_ko: string }> = {
     },
     prompts: {
         ko: '프롬프트',
-        sub_ko: '신앙생활과 사역을 돕는 효과적인 질문들',
+        sub_ko: '생각의 확장을 돕는 맞춤형 AI 프롬프트 모음',
     },
 };
 

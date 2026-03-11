@@ -171,7 +171,7 @@ const ServicesPage = () => {
             프로덕트
           </h1>
           <p className="text-gray-500">
-            신앙과 기술의 경계에서 탄생한 Faith Forward의 혁신적인 도구들입니다.
+            불필요한 소음을 걷어내고 삶의 본질과 방향을 짚어주는 도구들입니다.
           </p>
 
         </div>
@@ -566,7 +566,7 @@ const PromptsPage = () => {
   const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState('전체');
 
-  const tags = ['전체', '영성/묵상', '콘텐츠제작', '기획/분석', 'IT/기술'];
+  const tags = ['전체', ...Array.from(new Set(allPosts.flatMap((post: any) => post.tags || [])))];
 
   const filteredPosts = activeTag === '전체'
     ? allPosts
@@ -596,7 +596,7 @@ const PromptsPage = () => {
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
             프롬프트
           </h1>
-          <p className="text-gray-500">신앙생활과 사역을 돕는 효과적인 질문들입니다.</p>
+          <p className="text-gray-500">생각의 확장을 돕는 맞춤형 AI 프롬프트 모음입니다.</p>
         </div>
 
         {/* Categories / Tags Filtering */}
@@ -866,7 +866,7 @@ const Services = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
-          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+          <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
             주요 서비스
           </h2>
         </div>
@@ -944,7 +944,7 @@ const FeaturedPrompts = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
-          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+          <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
             대표 프롬프트
           </h2>
         </div>
@@ -1017,7 +1017,7 @@ const LatestInsights = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
-          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+          <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
             최신 인사이트
           </h2>
         </div>

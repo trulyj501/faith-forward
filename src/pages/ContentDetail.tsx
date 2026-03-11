@@ -95,6 +95,17 @@ const ContentDetail = () => {
                                 </a>
                             ),
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            img: ({ src, alt, ...props }: any) => {
+                                if (alt === 'preview') {
+                                    return (
+                                        <div className="flex justify-center md:justify-start mb-10 not-prose">
+                                            <img src={src} alt={alt} className="w-48 md:w-64 h-auto rounded-[1.25rem] shadow-xl shadow-black/5 ring-1 ring-black/5" {...props} />
+                                        </div>
+                                    );
+                                }
+                                return <img src={src} alt={alt} className="w-full h-auto rounded-3xl shadow-2xl shadow-black/10 my-10" {...props} />;
+                            },
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             blockquote: ({ node, children }: any) => {
                                 const calloutTypes: Record<string, { bg: string; border: string; icon: string; label: string }> = {
                                     'NOTE': { bg: 'bg-gray-50', border: 'border-gray-200', icon: '📘', label: 'NOTE' },
@@ -144,6 +155,50 @@ const ContentDetail = () => {
                                     <blockquote className="bg-emerald-50/60 rounded-2xl px-6 py-5 my-0 not-italic text-gray-700 [&>p]:my-0 [&>ul]:my-0 [&>ol]:my-0">
                                         {children}
                                     </blockquote>
+                                );
+                            },
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            pre: ({ children }: any) => <div className="not-prose">{children}</div>,
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            code({ node, className, children, ...props }: any) {
+                                const match = /language-(\w+)/.exec(className || '');
+                                // Determine if it is a block code or inline code. 
+                                // Block code usually has a new line at the end, and node contains position info
+                                const content = String(children).replace(/\n$/, '');
+                                const isBlock = match || String(children).includes('\n') || node?.position?.start?.line !== node?.position?.end?.line;
+
+                                if (!isBlock) {
+                                    return <code className="bg-gray-100 text-emerald-700 px-1.5 py-0.5 rounded text-[0.9em] font-mono" {...props}>{children}</code>;
+                                }
+
+                                return (
+                                    <div className="relative rounded-2xl overflow-hidden border border-black/10 bg-white">
+                                        <div className="flex items-center justify-between px-5 pt-4 pb-2 text-[12px] text-gray-500 font-sans border-b border-black/5">
+                                            <span className="font-medium tracking-wide lowercase">{match ? match[1] : 'text'}</span>
+                                            <button 
+                                                onClick={(e) => {
+                                                    navigator.clipboard.writeText(content);
+                                                    const btn = e.currentTarget;
+                                                    const originalHtml = btn.innerHTML;
+                                                    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> 복사 완료';
+                                                    btn.classList.add('bg-emerald-600', 'text-white');
+                                                    btn.classList.remove('bg-[#1D1D1F]', 'hover:bg-black');
+                                                    setTimeout(() => {
+                                                        btn.innerHTML = originalHtml;
+                                                        btn.classList.remove('bg-emerald-600', 'text-white');
+                                                        btn.classList.add('bg-[#1D1D1F]', 'hover:bg-black');
+                                                    }, 2000);
+                                                }}
+                                                className="bg-[#1D1D1F] text-white hover:bg-black px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 font-bold"
+                                            >
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                                복사
+                                            </button>
+                                        </div>
+                                        <div className="px-5 py-4 overflow-x-auto text-[14px] leading-[1.7] text-[#1F1F1F] font-mono whitespace-pre-wrap">
+                                            {content}
+                                        </div>
+                                    </div>
                                 );
                             },
                         }}

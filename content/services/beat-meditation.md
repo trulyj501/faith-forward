@@ -20,4 +20,4 @@ url: "https://www.youtube.com/@hiqotd"
 - 현대적인 비트와 잔잔한 멜로디의 교차
 - 몰입형 웹 오디오(Web Audio) 및 인터랙션 경험
 
-[비트 위의 묵상 체험하기](https://meditation.faithfwd.cc)
+[비트 위의 묵상 체험하기](https://www.youtube.com/@hiqotd)
