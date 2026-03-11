@@ -804,7 +804,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-40 pb-24 overflow-hidden px-6 sm:px-10 md:px-16 lg:px-24">
+    <section className="relative min-h-[50vh] md:min-h-[70vh] flex items-center pt-32 md:pt-40 pb-12 md:pb-24 overflow-hidden px-6 sm:px-10 md:px-16 lg:px-24">
       {/* Gradient background orbs */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-200/40 blur-[120px] rounded-full hidden md:block" />
@@ -812,17 +812,17 @@ const Hero = () => {
         <div className="absolute top-[-5%] right-[5%] w-[30%] h-[30%] bg-emerald-100/30 blur-[100px] rounded-full hidden md:block" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <div className="max-w-4xl">
+      <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col items-center text-center">
+        <div className="max-w-4xl flex flex-col items-center">
           <h1
             className="font-sans font-bold text-[#1D1D1F] mb-8"
             style={{ fontSize: 'clamp(1.8rem, 6.5vw, 5.5rem)', letterSpacing: '-0.05em', lineHeight: 1.15 }}
           >
-            <>AI 기술이 세상을 위한<br /> <span className="text-emerald-600">선한 도구가 되도록.</span></>
+            <>AI 기술이 세상을 위한<br /> <span className="text-emerald-600">선한 도구가 될 수 있도록.</span></>
           </h1>
 
 
-          <p className="text-[1.05rem] md:text-2xl text-black/50 mb-14 max-w-2xl leading-[1.6] font-medium" style={{ letterSpacing: '-0.01em' }}>
+          <p className="text-[1.05rem] md:text-2xl text-black/50 mb-14 max-w-2xl leading-[1.6] font-medium mx-auto" style={{ letterSpacing: '-0.01em' }}>
             <>
               무의미한 경쟁을 멈추고, 우리 삶에 정말 필요한<br />
               평화와 회복을 돕는 작지만 깊이 있는 도구를 만듭니다.
@@ -831,7 +831,7 @@ const Hero = () => {
 
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <button
               onClick={() => { navigate('/services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="btn-primary"
@@ -858,81 +858,57 @@ const Hero = () => {
 
 const Services = () => {
 
-
-  const services = getContentByCategory('services');
+  const services = getContentByCategory('services').slice(0, 3);
   const navigate = useNavigate();
 
   return (
     <section id="services" className="section-padding bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-          <div>
-            {/* Label removed */}
-            <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.04em] text-[#1D1D1F] leading-[1.1]">
-              주요 서비스
-            </h2>
-
-          </div>
-          <button
-            onClick={() => { navigate('/services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="group relative inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm uppercase shrink-0"
-            style={{ letterSpacing: '0.1em' }}
-          >
-            전체 보기
-            <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-150 group-hover:translate-x-1" />
-          </button>
+        <div className="flex flex-col items-center mb-16 gap-4 text-center">
+          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+            주요 서비스
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {services.map((service) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12">
+          {services.map((service, index) => (
             <div
               key={service.slug}
               onClick={() => { navigate(`/services/${service.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="group relative bg-white border border-black/5 rounded-[1.75rem] overflow-hidden cursor-pointer transform-gpu transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.06)] flex flex-col active:scale-[0.98]"
+              className="group cursor-pointer flex flex-row md:flex-col items-center gap-5 md:gap-0 bg-white md:bg-transparent p-4 md:p-0 rounded-[2rem] border border-black/[0.03] md:border-transparent hover:bg-black/[0.02] md:hover:bg-transparent transition-colors"
             >
-              <div className="w-full aspect-[16/9] overflow-hidden bg-[#F5F5F7]">
+              {/* Image Icon Area */}
+              <div className="w-[88px] sm:w-[120px] md:w-full md:max-w-[240px] shrink-0 aspect-square rounded-[1.75rem] md:rounded-[3.5rem] bg-white shadow-[0_4px_0_0_#EAEAEF] md:shadow-[0_8px_0_0_#EAEAEF] ring-1 ring-black/[0.03] transform-gpu transition-all duration-300 md:hover:scale-[0.98] group-hover:translate-y-1 group-hover:shadow-[0_2px_0_0_#EAEAEF,0_10px_20px_-10px_rgba(0,0,0,0.1)] md:group-hover:shadow-[0_4px_0_0_#EAEAEF,0_15px_30px_-10px_rgba(0,0,0,0.1)] mb-0 md:mb-10 overflow-hidden relative">
                 <img
                   src={(service as any).image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="p-7 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-[#1D1D1F] mb-3" style={{ letterSpacing: '-0.03em' }}>{service.title}</h3>
-                <p className="text-[#636366] text-base leading-[1.6] line-clamp-2 flex-grow mb-6" style={{ letterSpacing: '-0.01em' }}>
+
+              {/* Text Info Area */}
+              <div className="flex flex-col items-start md:items-center text-left md:text-center px-2 md:px-0 w-full md:max-w-[240px]">
+                <h3 className="text-[1.05rem] md:text-[1.15rem] font-bold text-[#1D1D1F] mb-1 md:mb-2 leading-tight group-hover:text-emerald-600 transition-colors" style={{ letterSpacing: '-0.02em' }}>
+                  {service.title}
+                </h3>
+                <p className="text-[0.85rem] md:text-sm text-gray-500 leading-relaxed line-clamp-2 md:line-clamp-2">
                   {service.excerpt}
                 </p>
-                <div className="pt-5 border-t border-black/[0.04] flex items-center gap-6 font-sans">
-                  {(service as any).url && (
-                    <a
-                      href={(service as any).url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="group/url inline-flex items-center gap-1 text-[#059669] text-[0.93rem] font-bold relative w-fit hover:text-emerald-700 transition-colors"
-                    >
-                      <span>사이트 가기</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/url:-translate-y-0.5 group-hover/url:translate-x-0.5" strokeWidth={2.5} />
-                    </a>
-                  )}
-
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/services/${service.slug}`);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="group/link inline-flex items-center gap-1 text-black/40 text-[0.93rem] font-bold relative w-fit cursor-pointer hover:text-black transition-colors"
-                  >
-                    <span>스토리 보기</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" strokeWidth={2} />
-                  </div>
-                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="mt-20 flex justify-center">
+          <button
+            onClick={() => { navigate('/services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="px-10 py-3.5 border-2 border-[#1D1D1F] text-[#1D1D1F] text-[13px] md:text-[14px] font-black uppercase tracking-[0.05em] hover:bg-[#1D1D1F] hover:text-white transition-all duration-300"
+          >
+            모든 서비스 보기
+          </button>
         </div>
       </div>
     </section>
@@ -967,20 +943,10 @@ const FeaturedPrompts = () => {
     <section id="prompts" className="section-padding bg-[#F5F5F7]">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.04em] text-[#1D1D1F] leading-[1.1]">
-              대표 프롬프트
-            </h2>
-          </div>
-          <button
-            onClick={() => { navigate('/prompts'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="group relative inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm uppercase shrink-0"
-            style={{ letterSpacing: '0.1em' }}
-          >
-            전체 보기
-            <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-150 group-hover:translate-x-1" />
-          </button>
+        <div className="flex flex-col items-center mb-16 gap-4 text-center">
+          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+            대표 프롬프트
+          </h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -1026,6 +992,16 @@ const FeaturedPrompts = () => {
             </div>
           ))}
         </div>
+        
+        {/* View All Button */}
+        <div className="mt-20 flex justify-center">
+          <button
+            onClick={() => { navigate('/prompts'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="px-10 py-3.5 border-2 border-[#1D1D1F] text-[#1D1D1F] text-[13px] md:text-[14px] font-black uppercase tracking-[0.05em] hover:bg-[#1D1D1F] hover:text-white transition-all duration-300"
+          >
+            모든 프롬프트 보기
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -1040,23 +1016,10 @@ const LatestInsights = () => {
     <section id="insights" className="section-padding bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-          <div>
-            {/* Label removed */}
-            <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.04em] text-[#1D1D1F] leading-[1.1]">
-              최신 인사이트
-            </h2>
-
-          </div>
-          <button
-            onClick={() => { navigate('/insights'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="group relative inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm uppercase shrink-0"
-            style={{ letterSpacing: '0.1em' }}
-          >
-            {'전체 보기'}
-
-            <ArrowRight size={14} strokeWidth={2} className="transition-transform duration-150 group-hover:translate-x-1" />
-          </button>
+        <div className="flex flex-col items-center mb-16 gap-4 text-center">
+          <h2 className="text-xl md:text-2xl font-medium tracking-tight text-black/40 leading-[1.1]">
+            최신 인사이트
+          </h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -1089,6 +1052,16 @@ const LatestInsights = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="mt-20 flex justify-center">
+          <button
+            onClick={() => { navigate('/insights'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="px-10 py-3.5 border-2 border-[#1D1D1F] text-[#1D1D1F] text-[13px] md:text-[14px] font-black uppercase tracking-[0.05em] hover:bg-[#1D1D1F] hover:text-white transition-all duration-300"
+          >
+            모든 인사이트 보기
+          </button>
         </div>
       </div>
     </section>

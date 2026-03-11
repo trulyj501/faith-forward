@@ -6,3 +6,4 @@ coverage/
 *.log
 .env*
 !.env.example
+content/insights/style-guide.md

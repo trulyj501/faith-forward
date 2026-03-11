@@ -116,10 +116,27 @@ const ContentDetail = () => {
 
                                 if (match) {
                                     const type = calloutTypes[match[1]];
-                                    const content = rawText.replace(/^\[!(NOTE|TIP|WARNING|IMPORTANT|INFO)\]\s?/, '').trim();
+                                    
+                                    const removeCalloutPrefix = (elements: any): any => {
+                                        return React.Children.map(elements, (child) => {
+                                            if (typeof child === 'string') {
+                                                return child.replace(/^\[!(NOTE|TIP|WARNING|IMPORTANT|INFO)\]\s*/, '');
+                                            }
+                                            if (React.isValidElement(child)) {
+                                                return React.cloneElement(child, {
+                                                    ...(child.props as any),
+                                                    children: removeCalloutPrefix((child.props as any).children)
+                                                } as any);
+                                            }
+                                            return child;
+                                        });
+                                    };
+
                                     return (
                                         <div className={`not-prose my-6 rounded-2xl border ${type.border} ${type.bg} px-6 py-5`}>
-                                            <p className="text-[0.97rem] text-gray-700 leading-relaxed m-0">{content}</p>
+                                            <div className="text-[0.97rem] text-gray-700 leading-relaxed m-0 [&>p]:m-0 [&_a]:text-emerald-600 [&_a]:underline [&_a:hover]:text-emerald-700">
+                                                {removeCalloutPrefix(children)}
+                                            </div>
                                         </div>
                                     );
                                 }
