@@ -26,10 +26,10 @@ function getMarkdownFiles(dir) {
 }
 
 // 1. Determine all routes
-const routes = ['/', '/vision', '/projects', '/insights', '/contact'];
+const routes = ['/', '/vision', '/works', '/insights', '/prompts', '/contact'];
 
 // Add routes for content collections
-const contentDirs = ['experiments', 'projects', 'insights'];
+const contentDirs = ['experiments', 'works', 'insights', 'prompts'];
 contentDirs.forEach(dir => {
     const fullPath = toAbsolute(`content/${dir}`);
     if (fs.existsSync(fullPath)) {
@@ -54,7 +54,7 @@ for (const url of routes) {
     // Inject rendered HTML and Helmet meta tags into the template
     let finalHtml = template
         .replace(`<!--app-html-->`, html)
-        .replace(`<!--app-head-->`, `<title>Faith Forward — 혼란스런 세상에서, 믿음만은 단단하게.</title>`);
+        .replace(`<!--app-head-->`, `<title>Faith Forward — AI기술이 선한 도구가 될 수 있도록.</title>`);
 
     // Determine output path
     const filePath = url === '/' ? 'index.html' : `${url.replace(/^\//, '')}/index.html`;

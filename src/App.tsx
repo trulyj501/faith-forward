@@ -51,10 +51,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: '비전', to: '/vision' },
-    { name: '서비스', to: '/services' },
+    { name: '작업실', to: '/works' },
     { name: '프롬프트', to: '/prompts' },
     { name: '인사이트', to: '/insights' },
-    { name: '문의', to: '/contact' },
+    { name: '멤버십', to: '/contact' },
   ];
 
 
@@ -154,7 +154,7 @@ const Navbar = () => {
 };
 
 const ServicesPage = () => {
-  const allServices = getContentByCategory('services');
+  const allServices = getContentByCategory('works');
   const navigate = useNavigate();
 
   // Create a mapping of slug to its global index (descending)
@@ -168,7 +168,7 @@ const ServicesPage = () => {
       <div className="max-w-4xl mx-auto space-y-16">
         <div className="border-b border-black/10 pb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
-            프로덕트
+            작업실
           </h1>
           <p className="text-gray-500">
             불필요한 소음을 걷어내고 삶의 본질과 방향을 짚어주는 도구들입니다.
@@ -177,68 +177,77 @@ const ServicesPage = () => {
         </div>
 
         <div className="space-y-16">
-          <section className="space-y-6">
-            <div className="flex items-center gap-4">
-              <h2 className="text-xl font-bold tracking-tight text-[#1A1A1A]">
-                {'모든 프로덕트'}
-              </h2>
+          {Object.entries(
+            servicesWithGlobalIndex.reduce((acc, service) => {
+              const label = (service as any).label || '기타';
+              if (!acc[label]) acc[label] = [];
+              acc[label].push(service);
+              return acc;
+            }, {} as Record<string, typeof servicesWithGlobalIndex>)
+          ).map(([groupLabel, groupItems]) => (
+            <section key={groupLabel} className="space-y-6">
+              <div className="flex items-center gap-4">
+                <h2 className="text-xl font-bold tracking-tight text-[#1A1A1A]">
+                  {groupLabel}
+                </h2>
 
-              <div className="flex-grow h-px bg-black/5"></div>
-              <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest font-mono">
-                {allServices.length} {allServices.length === 1 ? 'Service' : 'Services'}
-              </span>
-            </div>
+                <div className="flex-grow h-px bg-black/5"></div>
+                <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest font-mono">
+                  {groupItems.length} {groupItems.length === 1 ? 'Work' : 'Works'}
+                </span>
+              </div>
 
-            <ul className="space-y-3">
-              {servicesWithGlobalIndex.map((service) => (
-                <li
-                  key={service.slug}
-                  onClick={() => {
-                    navigate(`/services/${service.slug}`);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="group flex items-center gap-4 cursor-pointer py-1"
-                >
-                  <span className="text-xs font-mono text-gray-300 group-hover:text-emerald-500 transition-colors shrink-0 w-8">
-                    {(service as any).globalID}
-                  </span>
-                  <div className="flex flex-col flex-grow">
-                    {(service as any).image && (
-                      <div className="mb-3 w-28 h-16 overflow-hidden rounded-lg border border-black/[0.03] shadow-sm bg-gray-50 shrink-0">
-                        <img
-                          src={(service as any).image}
-                          alt=""
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                    )}
-                    <span className="text-lg md:text-xl font-medium text-gray-700 group-hover:text-black group-hover:underline underline-offset-4 decoration-emerald-400/60 decoration-2 transition-all">
-                      {service.title}
+              <ul className="space-y-3">
+                {groupItems.map((service) => (
+                  <li
+                    key={service.slug}
+                    onClick={() => {
+                      navigate(`/works/${service.slug}`);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="group flex items-center gap-4 cursor-pointer py-1"
+                  >
+                    <span className="text-xs font-mono text-gray-300 group-hover:text-emerald-500 transition-colors shrink-0 w-8">
+                      {(service as any).globalID}
                     </span>
-                    <span className="text-[14px] md:text-[15px] text-gray-400 mt-2 leading-relaxed max-w-2xl">
-                      {service.excerpt}
-                    </span>
-                  </div>
+                    <div className="flex flex-col flex-grow">
+                      {(service as any).image && (
+                        <div className="mb-3 w-28 h-16 overflow-hidden rounded-lg border border-black/[0.03] shadow-sm bg-gray-50 shrink-0">
+                          <img
+                            src={(service as any).image}
+                            alt=""
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      )}
+                      <span className="text-lg md:text-xl font-medium text-gray-700 group-hover:text-black group-hover:underline underline-offset-4 decoration-emerald-400/60 decoration-2 transition-all">
+                        {service.title}
+                      </span>
+                      <span className="text-[14px] md:text-[15px] text-gray-400 mt-2 leading-relaxed max-w-2xl">
+                        {service.excerpt}
+                      </span>
+                    </div>
 
-                  <div className="flex items-center gap-3 shrink-0">
-                    {(service as any).url && (
-                      <a
-                        href={(service as any).url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="px-4 py-1.5 rounded-lg bg-transparent text-emerald-600 text-[13px] font-bold tracking-tight hover:bg-emerald-600 hover:text-white transition-all duration-300 hidden sm:flex items-center gap-1.5 border border-emerald-500/30 hover:border-emerald-600"
-                      >
-                        <span>사이트 가기</span>
-                        <ArrowUpRight size={14} strokeWidth={2.5} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </a>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+                    <div className="flex items-center gap-3 shrink-0">
+                      {(service as any).url && (
+                        <a
+                          href={(service as any).url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="px-4 py-1.5 rounded-lg bg-transparent text-emerald-600 text-[13px] font-bold tracking-tight hover:bg-emerald-600 hover:text-white transition-all duration-300 hidden sm:flex items-center gap-1.5 border border-emerald-500/30 hover:border-emerald-600"
+                        >
+                          <span>사이트 가기</span>
+                          <ArrowUpRight size={14} strokeWidth={2.5} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
         </div>
       </div>
     </div>
@@ -272,10 +281,20 @@ const VisionPage = () => {
 
       <div className="max-w-3xl mx-auto">
         {/* Quote panel */}
-        <div className="glass-panel p-10 mb-16 border-emerald-100/30">
-          <blockquote className="text-xl md:text-2xl font-sans font-medium text-emerald-800 leading-tight italic">
-            "AI 기술, 경쟁이 아닌 선함을 위해 쓰일 수는 없을까요?"
-          </blockquote>
+        <div className="relative mb-16 md:mb-24 py-8 md:py-12 text-center overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-gray-50/80 to-transparent border border-black/[0.04]">
+          <div className="relative z-10 px-6 sm:px-10">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-100/60 text-emerald-600 mb-6">
+              <Sparkles size={24} className="fill-emerald-600/20" />
+            </div>
+            <blockquote className="text-2xl md:text-[2rem] lg:text-[2.5rem] font-bold text-[#1D1D1F] leading-[1.4] md:leading-[1.3]" style={{ letterSpacing: '-0.03em' }}>
+              "AI 기술, <br className="sm:hidden" />
+              <span className="relative inline-block mx-1">
+                <span className="relative z-10 text-emerald-700">경쟁이 아닌 선함</span>
+                <span className="absolute bottom-1.5 md:bottom-2 left-0 w-full h-3 md:h-4 bg-emerald-200/70 -z-10 -rotate-1 rounded-sm"></span>
+              </span>
+              을 위해<br className="hidden sm:block" /> 쓰일 수는 없을까요?"
+            </blockquote>
+          </div>
         </div>
 
         {/* Content body */}
@@ -311,7 +330,7 @@ const VisionPage = () => {
 
               <div className="border-l-4 border-blue-500 pl-8 py-2">
                 <h4 className="text-lg font-bold text-[#1D1D1F] mb-3">
-                  Vision: 기술이 선한 영향력을 흘려보내는 정직한 통로
+                  Bridge: 기술이 선한 영향력을 흘려보내는 정직한 통로
                 </h4>
                 <p className="text-black/50 text-base font-medium">
                   가짜와 선동이 넘치는 세상 속에서, 다음 세대가 정직함을 잃지 않고 본질을 꿰뚫는 분별력을 갖추도록 돕습니다.
@@ -335,21 +354,19 @@ const VisionPage = () => {
                 Connect with us
               </h3>
               <p className="mb-8">
-                Faith Forward의 여정에 마음이 닿아 함께하고 싶거나, 기술을 통해 선한 가치를 나누고 싶은 분들은 언제든 환영합니다. 협업 제안이나 나누고 싶은 고민이 있다면 언제든 편하게 문의해 주세요.
+                Faith Forward의 여정에 마음이 닿아 함께하고 싶거나, 기술을 통해 선한 가치를 나누고 싶은 분들은 언제든 환영합니다.
               </p>
               <button
                 onClick={() => { navigate('/contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className="inline-flex items-center gap-2 px-8 py-4 bg-[#1D1D1F] text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-[0.98]"
               >
-                문의하기
+                멤버십 내용 보기
                 <ArrowUpRight size={18} strokeWidth={2.5} />
               </button>
             </div>
           </div>
 
-          <div className="pt-12">
-            <p className="text-base text-black/40">Faith Forward</p>
-          </div>
+
         </div>
       </div>
     </div>
@@ -707,93 +724,198 @@ const ContactPage = () => {
       <div className="max-w-4xl mx-auto">
         <div className="border-b border-black/10 pb-8 mb-16">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
-            문의하기
+            페이스포워드 멤버십
           </h1>
           <p className="text-gray-500">
-            Faith Forward와 함께하고 싶으신가요? 마음을 들려주세요.
+            하루가 다르게 발전하는 AI 기술, 나만 뒤처지는 것 같아 조급한 마음이 들지는 않으셨나요?
           </p>
         </div>
 
-        <div className="max-w-2xl">
-          {isSubmitted ? (
-            <div className="bg-emerald-50 border border-emerald-100 p-10 rounded-3xl text-center animate-in fade-in zoom-in duration-500">
-              <div className="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6">
-                <Zap size={32} className="fill-white" />
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* Left: Content */}
+          <div className="space-y-12">
+            <section className="space-y-6">
+              <div className="space-y-4 text-black/60 leading-relaxed font-medium">
+                <p>
+                  <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg inline-block">페이스포워드 멤버십 [더 빌더스]</span>
+                </p>
+                <p>
+                  페이스포워드는 속도 경쟁 대신, 나만의 속도로 의미 있는 변화를 만들어가는 평온함을 소중히 여깁니다.
+                </p>
+                <p>
+                  더 빌더스는 거창한 개발자 모임이 아닙니다. AI가 낯설어도 내 삶과 업무에 작은 선의를 더해보고 싶은 초보자라면 누구나 환영합니다. 서툰 발걸음이라도 바른 방향으로 함께 걸어갈 든든한 멤버가 되어주세요.
+                </p>
               </div>
-              <h2 className="text-2xl font-bold text-[#1D1D1F] mb-4">
-                메시지가 전송되었습니다!
-              </h2>
-              <p className="text-black/50 mb-8 leading-relaxed">
-                보내주신 소중한 메시지를 확인하고 빠른 시일 내에 답변해 드리겠습니다.
-              </p>
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="text-emerald-600 font-bold hover:underline underline-offset-4"
-              >
-                새 메시지 보내기
-              </button>
+            </section>
+
+            <div className="h-px bg-black/5" />
+
+            <section className="space-y-10">
+              <h3 className="text-base font-bold"><span className="text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg inline-block">제공 혜택</span></h3>
+              
+              <div className="grid gap-8">
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    [초보자 한정] AI 맞춤 코칭
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    AI가 처음이라 막막하신가요? 프롬프트가 무엇인지, 도구를 어떻게 쓰는지 몰라도 괜찮습니다. 페이스포워드가 만든 작업물들을 토대로, 멤버의 눈높이에 맞춰 하나씩 함께 해결하며 나만의 결과물을 만들 수 있도록 도와드려요.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    내 프로젝트와 런칭 지원
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    내 업무를 편하게 해줄 개인적인 도구도 좋고, 나만의 작은 앱이나 사이트도 환영합니다. 멤버가 만드는 결과물이 페이스포워드의 가치와 닮아있다면 정식 출시를 돕고, 초기 프로토타이핑과 PMF 검증에 필요한 API 비용이나 서브 도메인도 멤버십 예산 안에서 든든하게 지원해 드립니다.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    모든 제작과정과 소스 공유
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    서비스가 어떻게 만들어지고 성장하는지 궁금하시죠? 페이스포워드가 만드는 모든 작업물의 소스 코드와 제작 과정, 실제 데이터까지 멤버에게 투명하게 보여드려요. 곁에서 지켜보는 것만으로도 큰 공부가 될 거예요.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    투명한 장부 공개
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    우리는 정직과 신뢰를 가장 중요하게 생각합니다. 페이스포워드가 어디에 돈을 쓰고 얼마를 벌었는지 모든 내역을 멤버에게 투명하게 공개합니다. 깨끗하고 건강한 커뮤니티를 함께 만들어가요.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    빌더스 커뮤니티
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    전용 슬랙(Slack) 채널과 분기별로 열리는 다정한 정기 회의에 초대합니다. 새로운 아이디어를 나누고 서로의 고민을 응원하며, 기술로 선의를 실천하는 커뮤니티의 일원이 되어주세요.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-bold text-[#1D1D1F] flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    서비스 이용 크레딧
+                  </h4>
+                  <p className="text-base text-black/50 leading-relaxed font-medium pl-3.5">
+                    페이스포워드에서 운영하는 유료 서비스들을 자유롭게 경험해 보실 수 있도록 멤버에게 넉넉한 이용 크레딧을 선물합니다.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <div className="h-px bg-black/5" />
+
+            <section className="space-y-4">
+              <h3 className="text-xl font-bold text-[#1D1D1F]">멤버십 안내</h3>
+              <div className="p-6 bg-black/5 rounded-2xl space-y-3">
+                <p className="font-bold text-[#1D1D1F]">가입 비용: 50,000원 (연 1회)</p>
+                <p className="font-bold text-[#1D1D1F]">유효 기간: 가입일로부터 2027년 3월 31일까지</p>
+                <p className="text-sm text-black/50 leading-relaxed font-medium">
+                  아직은 작은 꿈이지만, 더 빌더스의 활동을 통해 수익이 발생하게 된다면 그 결실을 멤버와 따뜻하게 나눌 수 있는 구조를 꿈꾸고 있습니다.
+                </p>
+              </div>
+            </section>
+          </div>
+
+          {/* Right: Form */}
+          <div className="relative">
+            <div className="sticky top-40 bg-white border border-black/5 p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-black/[0.02]">
+              <div className="mb-8">
+                <h3 className="text-xl font-bold text-[#1D1D1F]">멤버십 가입 신청</h3>
+                <p className="text-sm text-black/50 mt-3 font-medium">신청하시면 메일로 자세한 가입 안내서를 보내드립니다.</p>
+              </div>
+              {isSubmitted ? (
+                <div className="bg-emerald-50 border border-emerald-100 p-10 rounded-3xl text-center animate-in fade-in zoom-in duration-500">
+                  <div className="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Zap size={32} className="fill-white" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-[#1D1D1F] mb-4">
+                    메시지가 전송되었습니다!
+                  </h2>
+                  <p className="text-black/50 mb-8 leading-relaxed">
+                    보내주신 소중한 메시지를 확인하고 빠른 시일 내에 답변해 드리겠습니다.
+                  </p>
+                  <button
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-emerald-600 font-bold hover:underline underline-offset-4"
+                  >
+                    새 메시지 보내기
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-black/40 ml-1">
+                      이름
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="홍길동"
+                      className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-5 py-4 rounded-xl outline-none transition-all duration-300 placeholder:text-black/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-black/40 ml-1">
+                      이메일
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="example@mail.com"
+                      className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-5 py-4 rounded-xl outline-none transition-all duration-300 placeholder:text-black/20"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-[11px] font-bold uppercase tracking-widest text-black/40 ml-1">
+                      내용
+                    </label>
+                    <textarea
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="내용을 적어주세요."
+                      className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-5 py-4 rounded-xl outline-none transition-all duration-300 placeholder:text-black/20 resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full px-12 py-5 bg-[#1D1D1F] text-white font-bold rounded-2xl hover:bg-black transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 mt-4"
+                  >
+                    {isLoading ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                      <>
+                        <span>멤버십 신청하기</span>
+                        <ArrowRight size={18} />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="block text-sm font-bold uppercase tracking-widest text-black/40 ml-1">
-                    이름
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="홍길동"
-                    className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all duration-300 placeholder:text-black/20"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <label className="block text-sm font-bold uppercase tracking-widest text-black/40 ml-1">
-                    이메일
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="example@mail.com"
-                    className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all duration-300 placeholder:text-black/20"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <label className="block text-sm font-bold uppercase tracking-widest text-black/40 ml-1">
-                  문의 내용
-                </label>
-                <textarea
-                  required
-                  rows={6}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="함께 나누고 싶은 생각을 자유롭게 적어주세요."
-                  className="w-full bg-black/5 border border-transparent focus:border-emerald-500/30 focus:bg-white px-6 py-4 rounded-2xl outline-none transition-all duration-300 placeholder:text-black/20 resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full md:w-auto px-12 py-5 bg-[#1D1D1F] text-white font-bold rounded-2xl hover:bg-black transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50"
-              >
-                {isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                  <>
-                    <span>메시지 전송하기</span>
-                    <ArrowRight size={18} />
-                  </>
-                )}
-              </button>
-            </form>
-          )}
+          </div>
         </div>
       </div>
     </div>
@@ -833,10 +955,10 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 justify-center">
             <button
-              onClick={() => { navigate('/services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              onClick={() => { navigate('/works'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="btn-primary"
             >
-              서비스 탐색
+              작업실 탐색
               <ArrowRight size={16} strokeWidth={1.5} />
             </button>
 
@@ -858,16 +980,16 @@ const Hero = () => {
 
 const Services = () => {
 
-  const services = getContentByCategory('services').slice(0, 3);
+  const services = getContentByCategory('works').slice(0, 3);
   const navigate = useNavigate();
 
   return (
-    <section id="services" className="section-padding bg-transparent">
+    <section id="works" className="section-padding bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
           <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
-            주요 서비스
+            포워드 작업실
           </h2>
         </div>
 
@@ -875,7 +997,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={service.slug}
-              onClick={() => { navigate(`/services/${service.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              onClick={() => { navigate(`/works/${service.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="group cursor-pointer flex flex-row md:flex-col items-center gap-5 md:gap-0 bg-white md:bg-transparent p-4 md:p-0 rounded-[2rem] border border-black/[0.03] md:border-transparent hover:bg-black/[0.02] md:hover:bg-transparent transition-colors"
             >
               {/* Image Icon Area */}
@@ -904,10 +1026,10 @@ const Services = () => {
         {/* View All Button */}
         <div className="mt-20 flex justify-center">
           <button
-            onClick={() => { navigate('/services'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onClick={() => { navigate('/works'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             className="px-10 py-3.5 border-2 border-[#1D1D1F] text-[#1D1D1F] text-[13px] md:text-[14px] font-black uppercase tracking-[0.05em] hover:bg-[#1D1D1F] hover:text-white transition-all duration-300"
           >
-            모든 서비스 보기
+            작업실 둘러보기
           </button>
         </div>
       </div>
@@ -945,7 +1067,7 @@ const FeaturedPrompts = () => {
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
           <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
-            대표 프롬프트
+            최근 프롬프트
           </h2>
         </div>
 
@@ -1018,7 +1140,7 @@ const LatestInsights = () => {
         {/* Section header */}
         <div className="flex flex-col items-center mb-16 gap-4 text-center">
           <h2 className="text-[17px] md:text-[20px] font-black uppercase tracking-[0.05em] text-[#1D1D1F]">
-            최신 인사이트
+            최근 인사이트
           </h2>
         </div>
 
@@ -1115,7 +1237,7 @@ const Footer = () => {
               뉴스레터 구독하기
             </h3>
             <p className="text-[#86868B] text-lg font-medium">
-              새로운 프로덕트와 인사이트 소식을 메일로 받아보세요.
+              새로운 작업실과 인사이트 소식을 메일로 받아보세요.
             </p>
 
           </div>
@@ -1174,7 +1296,6 @@ const Footer = () => {
             <h4 className="font-bold mb-6 text-sm uppercase tracking-[0.2em] text-white/30">연결</h4>
             <ul className="space-y-4 text-white/50 text-base font-medium">
               <li><a href="https://www.linkedin.com/in/faith-foward-40a5ab3a2/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
             </ul>
           </div>
           <div>
@@ -1223,9 +1344,9 @@ export default function App() {
               <LatestInsights />
             </>
           } />
-          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/works" element={<ServicesPage />} />
 
-          <Route path="/services/:slug" element={<ContentDetail />} />
+          <Route path="/works/:slug" element={<ContentDetail />} />
           <Route path="/prompts" element={<PromptsPage />} />
           <Route path="/prompts/:slug" element={<ContentDetail />} />
           <Route path="/insights" element={<InsightsPage />} />

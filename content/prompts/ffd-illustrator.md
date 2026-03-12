@@ -1,7 +1,7 @@
 ---
 title: "감성 일러스트레이터 나노 바나나"
 excerpt: "장 자끄 상뻬 스타일의 따뜻하고 여백이 많은 미니멀 일러스트를 그려주는 AI 프롬프트"
-tags: ["이미지/디자인"]
+tags: ["이미지"]
 category: "prompts"
 color: "bg-teal-100 text-teal-700"
 icon: "Brush"

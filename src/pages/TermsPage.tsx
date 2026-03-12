@@ -80,7 +80,7 @@ const TermsPage = () => {
                         <h2 className="text-xl font-bold text-[#1A1A1A] mb-3">제8조 (문의)</h2>
                         <div className="bg-black/[0.03] rounded-2xl p-6 text-base space-y-1">
                             <p><span className="font-bold">운영자:</span> Faith Forward</p>
-                            <p><span className="font-bold">이메일:</span> contact@faithfwd.cc</p>
+                            <p><span className="font-bold">이메일:</span> hiqotd@gmail.com</p>
                         </div>
                     </section>
 

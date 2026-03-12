@@ -3,7 +3,7 @@ title: "창의성은 심리적 자신감입니다"
 slug: "creativity-is-a-state-of-mind-david-kelley"
 excerpt: "IDEO 설립자 데이비드 켈리가 말하는 모두가 창의적일 수 있는 이유와 작은 성공의 중요성."
 publishedDate: "2026-02-08"
-rating: 4.0
+rating: 5.0
 label: "일하는방식"
 color: "text-pink-600 bg-pink-50/50"
 ---

@@ -77,7 +77,7 @@ const PrivacyPage = () => {
                         <h2 className="text-xl font-bold text-[#1A1A1A] mb-3">제7조 (개인정보 보호 책임자)</h2>
                         <div className="bg-black/[0.03] rounded-2xl p-6 text-base space-y-1">
                             <p><span className="font-bold">책임자:</span> Faith Forward 운영팀</p>
-                            <p><span className="font-bold">이메일:</span> contact@faithfwd.cc</p>
+                            <p><span className="font-bold">이메일:</span> hiqotd@gmail.com</p>
                         </div>
                     </section>
 

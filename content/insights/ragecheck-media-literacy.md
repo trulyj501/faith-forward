@@ -33,4 +33,4 @@ RageCheck를 사용할 때 꼭 기억해야 할 몇 가지가 있습니다.
 덧. 이 도구로 청소년 미디어 리터러시 교육하면 재밌을 듯 하네요!
 
 > 그래서 진짜 만들어봤어요!
-> 프레임 레이더: https://frameradar-frontend.vercel.app/
+> 프레임 레이더: https://frameradar.faithfwd.cc/

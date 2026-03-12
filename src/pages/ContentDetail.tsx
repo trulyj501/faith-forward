@@ -18,7 +18,7 @@ const ContentDetail = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
 
-    if (!slug) return <Navigate to="/services" />;
+    if (!slug) return <Navigate to="/works" />;
 
     const post: ContentItem | undefined = getContentBySlug(slug);
 
@@ -38,9 +38,9 @@ const ContentDetail = () => {
     }
 
     const { category } = post;
-    const isProject = category === 'services';
+    const isProject = category === 'works';
     const categoryLabel = {
-        services: '서비스',
+        works: '작업실',
         insights: '인사이트',
         prompts: '프롬프트'
     }[category] || category;
@@ -71,7 +71,7 @@ const ContentDetail = () => {
 
                 <header className="mb-10">
                     <div className="mb-6 flex items-center gap-2">
-                        {post.tags && post.tags.map(tag => (
+                        {!isProject && post.tags && post.tags.map(tag => (
                             <span key={tag} className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-black/[0.03] text-black/40 uppercase tracking-widest">
                                 {tag}
                             </span>
@@ -95,6 +95,19 @@ const ContentDetail = () => {
                                 </a>
                             ),
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            p: ({ node, children, ...props }: any) => {
+                                const hasGallery = node?.children?.some(
+                                    (child: any) => child.type === 'element' && child.tagName === 'img' && child.properties?.alt === 'gallery'
+                                );
+                                if (hasGallery) {
+                                    const filteredChildren = React.Children.toArray(children).filter(
+                                        (child: any) => child.type !== 'br' && (typeof child !== 'string' || child.trim() !== '')
+                                    );
+                                    return <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 not-prose items-start">{filteredChildren}</div>;
+                                }
+                                return <p {...props}>{children}</p>;
+                            },
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             img: ({ src, alt, ...props }: any) => {
                                 if (alt === 'preview') {
                                     return (
@@ -102,6 +115,23 @@ const ContentDetail = () => {
                                             <img src={src} alt={alt} className="w-48 md:w-64 h-auto rounded-[1.25rem] shadow-xl shadow-black/5 ring-1 ring-black/5" {...props} />
                                         </div>
                                     );
+                                }
+                                if (alt === 'youtube') {
+                                    return (
+                                        <div className="flex justify-center md:justify-start mb-10 not-prose w-full">
+                                            <iframe 
+                                                src={src} 
+                                                title="YouTube video player" 
+                                                frameBorder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                                allowFullScreen
+                                                className="w-full max-w-[320px] aspect-[9/16] rounded-3xl shadow-xl ring-1 ring-black/5"
+                                            ></iframe>
+                                        </div>
+                                    );
+                                }
+                                if (alt === 'gallery') {
+                                    return <img src={src} alt={alt} className="w-full h-auto rounded-[1.25rem] object-cover" {...props} />;
                                 }
                                 return <img src={src} alt={alt} className="w-full h-auto rounded-3xl shadow-2xl shadow-black/10 my-10" {...props} />;
                             },
@@ -223,51 +253,9 @@ const ContentDetail = () => {
                     </div>
                 )}
 
-                {isProject && (post as any).url && (
-                    <div className="mt-20 pt-12 border-t border-black/5">
-                        <div className="bg-black/5 rounded-3xl p-10">
-                            <h3 className="text-2xl font-bold text-[#1D1D1F] mb-4">
-                                서비스를 직접 경험해보세요
-                            </h3>
-                            <p className="mb-8">
-                                지금 바로 링크를 통해 실제 서비스를 확인하실 수 있습니다.
-                            </p>
-                            <a
-                                href={(post as any).url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-[#1D1D1F] text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-[0.98] w-fit"
-                            >
-                                웹사이트 방문하기
-                                <ArrowUpRight size={18} strokeWidth={2.5} />
-                            </a>
-                        </div>
-                    </div>
-                )}
 
-                {category === 'prompts' && (
-                    <div className="mt-20 pt-12 border-t border-black/5">
-                        <div className="bg-black/5 rounded-3xl p-10">
-                            <h3 className="text-2xl font-bold text-[#1D1D1F] mb-4">
-                                혼자 학습이 어렵나요?
-                            </h3>
-                            <p className="mb-8">
-                                1:1 온라인 코칭을 요청해 보세요. 학습을 도와드립니다.
-                            </p>
-                            <button
-                                onClick={() => {
-                                    const message = encodeURIComponent(`[${post.title}] 1:1 온라인 코칭 요청합니다`);
-                                    navigate(`/contact?message=${message}`);
-                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                }}
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-[#1D1D1F] text-white font-bold rounded-2xl hover:bg-black transition-all active:scale-[0.98] w-fit"
-                            >
-                                문의하기
-                                <ArrowUpRight size={18} strokeWidth={2.5} />
-                            </button>
-                        </div>
-                    </div>
-                )}
+
+
 
                 <footer className="mt-10 pt-8 border-t border-black/10">
                     <div className="flex items-center justify-between">

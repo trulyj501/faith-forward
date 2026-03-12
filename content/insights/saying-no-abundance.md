@@ -3,7 +3,7 @@ title: "풍요의 시대에 '아니오'라고 말하는 법"
 slug: "saying-no-abundance"
 excerpt: "모든 것을 만들 수 있는 풍요의 시대에 왜 '절제'와 '거절'이 더 중요한 가치가 되는지 살펴봅니다."
 publishedDate: "2026-03-03"
-rating: 4.5
+rating: 4.0
 label: "일하는방식"
 color: "text-emerald-600 bg-emerald-50/50"
 ---

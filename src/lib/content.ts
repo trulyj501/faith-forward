@@ -6,19 +6,20 @@ export interface ContentItem {
     excerpt: string;
     tags?: string[];
     publishedDate?: string;
-    subtitle?: string;
+
     image?: string;
     url?: string;
     label?: string;
     color?: string;
     rating?: number;
     content: string; // the raw markdown body
-    category: 'services' | 'insights' | 'prompts';
+    category: 'works' | 'insights' | 'prompts';
 }
 
 // In Vite, this gathers all markdown files in the specified directories
 const rawContentModules = import.meta.glob('../../content/**/*.md', {
-    as: 'raw',
+    query: '?raw',
+    import: 'default',
     eager: true,
 });
 

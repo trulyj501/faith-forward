@@ -20,9 +20,9 @@ const RecommendationBadge = ({ rating }: { rating: number | string }) => {
 
 
 const CATEGORY_LABELS: Record<string, { ko: string; sub_ko: string }> = {
-    services: {
-        ko: '서비스',
-        sub_ko: '불필요한 소음을 걷어내고 삶의 본질과 방향을 짚어주는 도구들',
+    works: {
+        ko: '작업실',
+        sub_ko: '불필요한 소음을 걷어내고 삶의 본질과 방향을 짚어주는 도구들입니다.',
     },
     insights: {
         ko: '인사이트',
@@ -41,7 +41,7 @@ const ContentList = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const tagFilter = searchParams.get('tag');
 
-    const currentCategory = category || 'services';
+    const currentCategory = category || 'works';
     const items = useMemo(() => getContentByCategory(currentCategory), [currentCategory]);
     const label = CATEGORY_LABELS[currentCategory]?.ko || currentCategory;
     const subLabel = CATEGORY_LABELS[currentCategory]?.sub_ko || '';
@@ -138,11 +138,11 @@ const ContentList = () => {
                 ) : (
                     <div className="grid md:grid-cols-3 gap-8">
                         {displayItems.map((item) => {
-                            if (currentCategory === 'services') {
+                            if (currentCategory === 'works') {
                                 return (
                                     <div
                                         key={item.slug}
-                                        onClick={() => { navigate(`/services/${item.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                                        onClick={() => { navigate(`/works/${item.slug}`); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                                         className="apple-card group cursor-pointer flex flex-col overflow-hidden active:scale-[0.98] transform-gpu bg-white shadow-xl shadow-black/[0.03]"
                                     >
                                         <div className="w-full aspect-[16/9] overflow-hidden bg-[#F5F5F7]">
