@@ -164,7 +164,7 @@ const ServicesPage = () => {
   }));
 
   return (
-    <div className="pt-20 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24">
+    <div className="pt-32 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24">
       <div className="max-w-4xl mx-auto space-y-16">
         <div className="border-b border-black/10 pb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
@@ -259,7 +259,7 @@ const VisionPage = () => {
   const navigate = useNavigate();
   return (
     <div
-      className="pt-20 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 relative overflow-hidden"
+      className="pt-32 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 relative overflow-hidden"
     >
       {/* Background orbs */}
       <div className="absolute inset-0 -z-10">
@@ -508,7 +508,7 @@ const InsightsPage = () => {
   }, {} as Record<string, typeof postsWithGlobalIndex>);
 
   return (
-    <div className="pt-20 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 min-h-[80vh]">
+    <div className="pt-32 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 min-h-[80vh]">
       <div className="max-w-4xl mx-auto">
         <div className="border-b border-black/10 pb-8 mb-6 md:mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
@@ -607,7 +607,7 @@ const PromptsPage = () => {
   };
 
   return (
-    <div className="pt-20 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 min-h-[80vh]">
+    <div className="pt-32 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24 min-h-[80vh]">
       <div className="max-w-4xl mx-auto">
         <div className="border-b border-black/10 pb-8 mb-6 md:mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
@@ -720,7 +720,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="pt-20 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24">
+    <div className="pt-32 md:pt-40 pb-32 px-6 sm:px-10 md:px-16 lg:px-24">
       <div className="max-w-4xl mx-auto">
         <div className="border-b border-black/10 pb-8 mb-16">
           <h1 className="text-4xl font-bold tracking-tight mb-2 text-[#1A1A1A]">
